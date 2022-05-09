@@ -15,7 +15,7 @@ public:
 	inline bool operator != (const BEVector4& _rhs) const;
 
 	//TODO
-	//inline BEVector4 operator * (BEMatrix3 _rhs) const;
+	//inline BEVector4 operator * (BEMatrix4 _rhs) const;
 
 	inline float GetLength() const;
 	inline BEVector4 GetNormalized() const;

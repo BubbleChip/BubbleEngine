@@ -1,25 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Application">
-      <UniqueIdentifier>{42055d52-9685-4c22-a644-8bdaa43d779a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Container">
-      <UniqueIdentifier>{f9e6bebd-09d7-4655-b780-6c0bc8cfa09f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Math">
-      <UniqueIdentifier>{91e30753-e5fd-4674-b302-7833b429ef83}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Window">
-      <UniqueIdentifier>{529cf81a-a9b4-4ae2-9f3e-e2071a081f9e}</UniqueIdentifier>
+      <UniqueIdentifier>{3066a048-1f8c-479f-af6d-7bb1a91ae82f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BubbleLib.h" />
     <ClInclude Include="BEVector2.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="BEVector2.inl">
       <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="BEVector3.h">
@@ -28,13 +15,31 @@
     <ClInclude Include="BEVector4.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="BEVector3.inl">
+    <ClInclude Include="BEMatrix2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="BEMatrix3.h">
       <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="BEVector2.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="BEVector3.inl">
+      <Filter>Math</Filter>
+    </None>
     <None Include="BEVector4.inl">
       <Filter>Math</Filter>
     </None>
+    <None Include="BEMatrix2.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="BEMatrix3.inl">
+      <Filter>Math</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source.cpp" />
   </ItemGroup>
 </Project>
