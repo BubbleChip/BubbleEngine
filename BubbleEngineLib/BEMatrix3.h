@@ -5,31 +5,31 @@
 class BEMatrix3
 {
 public:
-	constexpr BEMatrix3();
-	constexpr BEMatrix3(float _00, float _01, float _02, float _10, float _11, float _12, float _20, float _21, float _22);
+	inline BEMatrix3() ;
+	inline BEMatrix3(float _00, float _01, float _02, float _10, float _11, float _12, float _20, float _21, float _22) ;
 
 
-	constexpr BEMatrix3 operator * (const float _rhs) const;
-	constexpr BEMatrix3 operator * (const BEMatrix3& _rhs) const;
-	constexpr BEMatrix3 operator + (const BEMatrix3& _rhs) const;
-	constexpr BEMatrix3 operator - (const BEMatrix3& _rhs) const;
+	inline BEMatrix3 operator * (const float _rhs) const ;
+	inline BEMatrix3 operator * (const BEMatrix3& _rhs) const ;
+	inline BEMatrix3 operator + (const BEMatrix3& _rhs) const ;
+	inline BEMatrix3 operator - (const BEMatrix3& _rhs) const ;
 
-	constexpr BEMatrix3& operator*=(const float _rhs) noexcept;
-	constexpr BEMatrix3& operator*=(const BEMatrix3& _rhs) noexcept;
-	constexpr BEMatrix3& operator+=(const BEMatrix3& _rhs) noexcept;
-	constexpr BEMatrix3& operator-=(const BEMatrix3& _rhs) noexcept;
+	inline BEMatrix3& operator*=(const float _rhs) ;
+	inline BEMatrix3& operator*=(const BEMatrix3& _rhs) ;
+	inline BEMatrix3& operator+=(const BEMatrix3& _rhs) ;
+	inline BEMatrix3& operator-=(const BEMatrix3& _rhs) ;
 
-	constexpr bool operator == (const BEMatrix3& _rhs) const;
-	constexpr bool operator != (const BEMatrix3& _rhs) const;
+	inline bool operator == (const BEMatrix3& _rhs) const ;
+	inline bool operator != (const BEMatrix3& _rhs) const ;
 
-	constexpr BEMatrix3 GetTransposeMatrix() const;
+	inline BEMatrix3 GetTransposeMatrix() const ;
 
-	constexpr float GetMatrixDeterminant() const;
-	constexpr bool GetInverseMatrix(BEMatrix3& _outResult) const;
+	inline float GetMatrixDeterminant() const ;
+	inline bool GetInverseMatrix(BEMatrix3& _outResult) const ;
 
-	constexpr std::string ToString() const;
+	inline std::string ToString() const;
 
-private:
+public:
 	union
 	{
 		struct
@@ -39,7 +39,7 @@ private:
 			float m02;
 			float m10;
 			float m11;
-			float m12; 
+			float m12;
 			float m20;
 			float m21;
 			float m22;

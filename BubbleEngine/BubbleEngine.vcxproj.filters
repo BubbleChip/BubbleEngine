@@ -9,15 +9,45 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{33244dbf-4a4a-47ef-9225-46279ad64635}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Priavte">
+      <UniqueIdentifier>{0bf19efd-8194-4a76-8643-8d11674c5764}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Priavte\Win32">
+      <UniqueIdentifier>{266596b0-3765-4228-8bd1-c26b6eb51932}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Priavte\Cocoa">
+      <UniqueIdentifier>{3fbc59d9-97de-4341-8ffb-dd6c00e76ac8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BEApp.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="ApplicationContext.cpp">
+      <Filter>Application\Priavte\Win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Test_BubbleEngine\d3dx12.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BEAppContextInterface.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="BEApp.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="ApplicationContext.h">
+      <Filter>Application\Priavte\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="ApplicationPlatform.h">
+      <Filter>Application\Priavte</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

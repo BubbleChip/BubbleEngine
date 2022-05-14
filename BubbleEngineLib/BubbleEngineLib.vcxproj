@@ -19,6 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BEAffineTransform2.h" />
+    <ClInclude Include="BEAffineTransform3.h" />
+    <ClInclude Include="BELinearTransform2.h" />
+    <ClInclude Include="BELinearTransform3.h" />
+    <ClInclude Include="BEMathLib.h" />
     <ClInclude Include="BEMatrix2.h" />
     <ClInclude Include="BEMatrix3.h" />
     <ClInclude Include="BEMatrix4.h" />
@@ -27,6 +32,10 @@
     <ClInclude Include="BEVector4.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="BEAffineTransform2.inl" />
+    <None Include="BEAffineTransform3.inl" />
+    <None Include="BELinearTransform2.inl" />
+    <None Include="BELinearTransform3.inl" />
     <None Include="BEMatrix2.inl" />
     <None Include="BEMatrix3.inl" />
     <None Include="BEMatrix4.inl" />

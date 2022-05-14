@@ -5,30 +5,30 @@
 class BEMatrix2
 {
 public:
-	constexpr  BEMatrix2();
-	constexpr  BEMatrix2(float _00, float _01, float _10, float _11);
+	inline  BEMatrix2();
+	inline  BEMatrix2(float _00, float _01, float _10, float _11);
 
-	constexpr  BEMatrix2 operator * (const float _rhs) const;
+	inline  BEMatrix2 operator * (const float _rhs) const ;
 
-	constexpr BEMatrix2 operator + (const BEMatrix2& _rhs) const;
-	constexpr BEMatrix2 operator - (const BEMatrix2& _rhs) const;
-	constexpr BEMatrix2 operator * (const BEMatrix2& _rhs) const;
+	inline BEMatrix2 operator + (const BEMatrix2& _rhs) const ;
+	inline BEMatrix2 operator - (const BEMatrix2& _rhs) const ;
+	inline BEMatrix2 operator * (const BEMatrix2& _rhs) const ;
 
-	constexpr BEMatrix2& operator+=(const BEMatrix2& _rhs) noexcept;
-	constexpr BEMatrix2& operator-=(const BEMatrix2& _rhs) noexcept;
-	constexpr BEMatrix2& operator*=(const BEMatrix2& _rhs) noexcept;
-	constexpr BEMatrix2& operator*=(const float _rhs) noexcept;
+	inline BEMatrix2& operator+=(const BEMatrix2& _rhs) ;
+	inline BEMatrix2& operator-=(const BEMatrix2& _rhs) ;
+	inline BEMatrix2& operator*=(const BEMatrix2& _rhs) ;
+	inline BEMatrix2& operator*=(const float _rhs) ;
 
-	constexpr  bool operator == (const BEMatrix2& _rhs) const;
-	constexpr  bool operator != (const BEMatrix2& _rhs) const;
+	inline  bool operator == (const BEMatrix2& _rhs) const ;
+	inline  bool operator != (const BEMatrix2& _rhs) const ;
 
-	constexpr  BEMatrix2 GetTransposeMatrix() const;
-	constexpr  bool GetInverseMatrix(BEMatrix2& _outResult) const;
-	constexpr float GetMatrixDeterminant() const noexcept;
+	inline  BEMatrix2 GetTransposeMatrix() const ;
+	inline  bool GetInverseMatrix(BEMatrix2& _outResult) const ;
+	inline float GetMatrixDeterminant() const ;
 
-	constexpr  std::string ToString() const;
+	inline  std::string ToString() const;
 
-private:
+public:
 	static const int ROW_COL_COUNT = 2;
 
 	union

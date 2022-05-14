@@ -5,31 +5,31 @@
 class BEMatrix4
 {
 public:
-	constexpr BEMatrix4();
-	constexpr BEMatrix4(float _00, float _01, float _02, float _03, float _10, float _11, float _12, float _13, float _20, float _21, float _22, float _23, float _30, float _31, float _32, float _33);
+	inline BEMatrix4() ;
+	inline BEMatrix4(float _00, float _01, float _02, float _03, float _10, float _11, float _12, float _13, float _20, float _21, float _22, float _23, float _30, float _31, float _32, float _33) ;
 
 
-	constexpr BEMatrix4 operator * (const float _rhs) const;
-	constexpr BEMatrix4 operator * (const BEMatrix4& _rhs) const;
-	constexpr BEMatrix4 operator + (const BEMatrix4& _rhs) const;
-	constexpr BEMatrix4 operator - (const BEMatrix4& _rhs) const;
+	inline BEMatrix4 operator * (const float _rhs) const ;
+	inline BEMatrix4 operator * (const BEMatrix4& _rhs) const ;
+	inline BEMatrix4 operator + (const BEMatrix4& _rhs) const ;
+	inline BEMatrix4 operator - (const BEMatrix4& _rhs) const ;
 
-	constexpr BEMatrix4& operator*=(const float _rhs) noexcept;
-	constexpr BEMatrix4& operator*=(const BEMatrix4& _rhs) noexcept;
-	constexpr BEMatrix4& operator+=(const BEMatrix4& _rhs) noexcept;
-	constexpr BEMatrix4& operator-=(const BEMatrix4& _rhs) noexcept;
+	inline BEMatrix4& operator*=(const float _rhs) ;
+	inline BEMatrix4& operator*=(const BEMatrix4& _rhs) ;
+	inline BEMatrix4& operator+=(const BEMatrix4& _rhs) ;
+	inline BEMatrix4& operator-=(const BEMatrix4& _rhs) ;
 
-	constexpr bool operator == (const BEMatrix4& _rhs) const;
-	constexpr bool operator != (const BEMatrix4& _rhs) const;
+	inline bool operator == (const BEMatrix4& _rhs) const ;
+	inline bool operator != (const BEMatrix4& _rhs) const ;
 
-	constexpr BEMatrix4 GetTransposeMatrix() const;
+	inline BEMatrix4 GetTransposeMatrix() const ;
 
-	constexpr float GetMatrixDeterminant() const;
-	constexpr bool GetInverseMatrix(BEMatrix4& _outResult) const;
+	inline float GetMatrixDeterminant() const ;
+	inline bool GetInverseMatrix(BEMatrix4& _outResult) const ;
 
-	constexpr std::string ToString() const;
+	inline std::string ToString() const;
 
-private:
+public:
 	union
 	{
 		struct

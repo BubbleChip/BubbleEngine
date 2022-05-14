@@ -1,21 +1,21 @@
 #include "BEMatrix3.h"
 #include <math.h>
 
-constexpr BEMatrix3::BEMatrix3()
+inline BEMatrix3::BEMatrix3() 
 	: m00(1.0f), m01(0.0f), m02(0.0f)
 	, m10(0.0f), m11(1.0f), m12(0.0f)
 	, m20(0.0f), m21(0.0f), m22(1.0f)
 {
 }
 
-constexpr BEMatrix3::BEMatrix3(float _00, float _01, float _02, float _10, float _11, float _12, float _20, float _21, float _22)
+inline BEMatrix3::BEMatrix3(float _00, float _01, float _02, float _10, float _11, float _12, float _20, float _21, float _22) 
 	: m00(_00), m01(_01), m02(_02)
 	, m10(_10), m11(_11), m12(_12)
 	, m20(_20), m21(_21), m22(_22)
 {
 }
 
-constexpr BEMatrix3 BEMatrix3::operator*(const float _rhs) const
+inline BEMatrix3 BEMatrix3::operator*(const float _rhs) const 
 {
 	return { m00 * _rhs, m01 * _rhs, m02 * _rhs,
 			 m10 * _rhs, m11 * _rhs, m12 * _rhs,
@@ -23,7 +23,7 @@ constexpr BEMatrix3 BEMatrix3::operator*(const float _rhs) const
 
 }
 
-constexpr BEMatrix3 BEMatrix3::operator*(const BEMatrix3& _rhs) const
+inline BEMatrix3 BEMatrix3::operator*(const BEMatrix3& _rhs) const 
 {
 	BEMatrix3 mat;
 	mat.m00 = (m00 * _rhs.m00) + (m01 * _rhs.m10) + (m02 * _rhs.m20);
@@ -38,21 +38,21 @@ constexpr BEMatrix3 BEMatrix3::operator*(const BEMatrix3& _rhs) const
 	return mat;
 }
 
-constexpr BEMatrix3 BEMatrix3::operator+(const BEMatrix3& _rhs) const
+inline BEMatrix3 BEMatrix3::operator+(const BEMatrix3& _rhs) const 
 {
 	return { m00 + _rhs.m00, m01 + _rhs.m01, m02 + _rhs.m02,
 			 m10 + _rhs.m10, m11 + _rhs.m11, m12 + _rhs.m12,
 			 m20 + _rhs.m20, m21 + _rhs.m21, m22 + _rhs.m22 };
 }
 
-constexpr BEMatrix3 BEMatrix3::operator-(const BEMatrix3& _rhs) const
+inline BEMatrix3 BEMatrix3::operator-(const BEMatrix3& _rhs) const 
 {
 	return { m00 - _rhs.m00, m01 - _rhs.m01, m02 - _rhs.m02,
 			 m10 - _rhs.m10, m11 - _rhs.m11, m12 - _rhs.m12,
 			 m20 - _rhs.m20, m21 - _rhs.m21, m22 - _rhs.m22 };
 }
 
-constexpr BEMatrix3& BEMatrix3::operator*=(const float _rhs) noexcept
+inline BEMatrix3& BEMatrix3::operator*=(const float _rhs) 
 {
 	m00 *= _rhs; m01 *= _rhs; m02 *= _rhs;
 	m10 *= _rhs; m11 *= _rhs; m12 *= _rhs;
@@ -60,7 +60,7 @@ constexpr BEMatrix3& BEMatrix3::operator*=(const float _rhs) noexcept
 	return *this;
 }
 
-constexpr BEMatrix3& BEMatrix3::operator*=(const BEMatrix3& _rhs) noexcept
+inline BEMatrix3& BEMatrix3::operator*=(const BEMatrix3& _rhs) 
 {
 	BEMatrix3 mat{ *this };
 	m00 = (mat.m00 * _rhs.m00) + (mat.m01 * _rhs.m10) + (mat.m02 * _rhs.m20);
@@ -75,7 +75,7 @@ constexpr BEMatrix3& BEMatrix3::operator*=(const BEMatrix3& _rhs) noexcept
 	return *this;
 }
 
-constexpr BEMatrix3& BEMatrix3::operator+=(const BEMatrix3& _rhs) noexcept
+inline BEMatrix3& BEMatrix3::operator+=(const BEMatrix3& _rhs) 
 {
 	m00 += _rhs.m00;
 	m01 += _rhs.m01;
@@ -89,7 +89,7 @@ constexpr BEMatrix3& BEMatrix3::operator+=(const BEMatrix3& _rhs) noexcept
 	return *this;
 }
 
-constexpr BEMatrix3& BEMatrix3::operator-=(const BEMatrix3& _rhs) noexcept
+inline BEMatrix3& BEMatrix3::operator-=(const BEMatrix3& _rhs) 
 {
 	m00 -= _rhs.m00;
 	m01 -= _rhs.m01;
@@ -103,28 +103,28 @@ constexpr BEMatrix3& BEMatrix3::operator-=(const BEMatrix3& _rhs) noexcept
 	return *this;
 }
 
-constexpr bool BEMatrix3::operator==(const BEMatrix3& _rhs) const
+inline bool BEMatrix3::operator==(const BEMatrix3& _rhs) const 
 {
 	return m00 == _rhs.m00 && m01 == _rhs.m01 && m02 == _rhs.m02
 		&& m10 == _rhs.m10 && m11 == _rhs.m11 && m12 == _rhs.m12
 		&& m20 == _rhs.m20 && m21 == _rhs.m21 && m22 == _rhs.m22;
 }
 
-constexpr bool BEMatrix3::operator!=(const BEMatrix3& _rhs) const
+inline bool BEMatrix3::operator!=(const BEMatrix3& _rhs) const 
 {
 	return m00 != _rhs.m00 || m01 != _rhs.m01 || m02 != _rhs.m02
 		|| m10 != _rhs.m10 || m11 != _rhs.m11 || m12 != _rhs.m12
 		|| m20 != _rhs.m20 || m21 != _rhs.m21 || m22 != _rhs.m22;
 }
 
-constexpr BEMatrix3 BEMatrix3::GetTransposeMatrix() const
+inline BEMatrix3 BEMatrix3::GetTransposeMatrix() const 
 {
 	return { m00, m10, m20,
 			 m01, m11, m21,
 			 m02, m12, m22 };
 }
 
-constexpr float BEMatrix3::GetMatrixDeterminant() const
+inline float BEMatrix3::GetMatrixDeterminant() const 
 {
 	return  (m00 * m11 * m22) +
 			(m10 * m21 * m02) +
@@ -134,7 +134,7 @@ constexpr float BEMatrix3::GetMatrixDeterminant() const
 			(m00 * m21 * m12);
 }
 
-constexpr bool BEMatrix3::GetInverseMatrix(BEMatrix3& _outResult) const
+inline bool BEMatrix3::GetInverseMatrix(BEMatrix3& _outResult) const 
 {
 	_outResult = BEMatrix3();
 	float determinant = GetMatrixDeterminant();
@@ -158,7 +158,7 @@ constexpr bool BEMatrix3::GetInverseMatrix(BEMatrix3& _outResult) const
 	return true;
 }
 
-constexpr std::string BEMatrix3::ToString() const
+inline std::string BEMatrix3::ToString() const 
 {
 	std::string result = " :: Matrix ::\n";
 

@@ -24,6 +24,21 @@
     <ClInclude Include="BEMatrix4.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="BEAffineTransform2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="BELinearTransform2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="BEAffineTransform3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="BELinearTransform3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="BEMathLib.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="BEVector2.inl">
@@ -42,6 +57,18 @@
       <Filter>Math</Filter>
     </None>
     <None Include="BEMatrix4.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="BEAffineTransform2.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="BELinearTransform2.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="BEAffineTransform3.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="BELinearTransform3.inl">
       <Filter>Math</Filter>
     </None>
   </ItemGroup>

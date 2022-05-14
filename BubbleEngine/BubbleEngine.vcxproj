@@ -159,6 +159,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ApplicationContext.cpp" />
+    <ClCompile Include="BEApp.cpp" />
     <ClCompile Include="winMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -168,6 +170,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Test_BubbleEngine\d3dx12.h" />
+    <ClInclude Include="ApplicationPlatform.h" />
+    <ClInclude Include="BEApp.h" />
+    <ClInclude Include="BEAppContextInterface.h" />
+    <ClInclude Include="ApplicationContext.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

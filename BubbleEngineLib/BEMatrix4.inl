@@ -1,7 +1,7 @@
 #include "BEMatrix4.h"
 #include <math.h>
 
-constexpr BEMatrix4::BEMatrix4() noexcept
+inline BEMatrix4::BEMatrix4() 
 	: m00(0.0f), m01(0.0f), m02(0.0f), m03(0.0f)
 	, m10(0.0f), m11(0.0f), m12(0.0f), m13(0.0f)
 	, m20(0.0f), m21(0.0f), m22(0.0f), m23(0.0f)
@@ -9,10 +9,10 @@ constexpr BEMatrix4::BEMatrix4() noexcept
 {
 }
 
-constexpr BEMatrix4::BEMatrix4(float _00, float _01, float _02, float _03,
+inline BEMatrix4::BEMatrix4(float _00, float _01, float _02, float _03,
 	float _10, float _11, float _12, float _13,
 	float _20, float _21, float _22, float _23,
-	float _30, float _31, float _32, float _33) noexcept
+	float _30, float _31, float _32, float _33) 
 	: m00(_00), m01(_01), m02(_02), m03(_03)
 	, m10(_10), m11(_11), m12(_12), m13(_13)
 	, m20(_20), m21(_21), m22(_22), m23(_23)
@@ -20,7 +20,7 @@ constexpr BEMatrix4::BEMatrix4(float _00, float _01, float _02, float _03,
 {
 }
 
-constexpr BEMatrix4 BEMatrix4::operator*(float _rhs) const noexcept
+inline BEMatrix4 BEMatrix4::operator*(float _rhs) const 
 {
 	return { (m00 * _rhs), (m01 * _rhs), (m02 * _rhs), (m03 * _rhs)
 		   , (m10 * _rhs), (m11 * _rhs), (m12 * _rhs), (m13 * _rhs)
@@ -28,7 +28,7 @@ constexpr BEMatrix4 BEMatrix4::operator*(float _rhs) const noexcept
 		   , (m30 * _rhs), (m31 * _rhs), (m32 * _rhs), (m33 * _rhs) };
 }
 
-constexpr BEMatrix4 BEMatrix4::operator*(const BEMatrix4& _rhs) const noexcept
+inline BEMatrix4 BEMatrix4::operator*(const BEMatrix4& _rhs) const 
 {
 	BEMatrix4 mat;
 	mat.m00 = (m00 * _rhs.m00) + (m01 * _rhs.m10) + (m02 * _rhs.m20) + (m03 * _rhs.m30);
@@ -50,7 +50,7 @@ constexpr BEMatrix4 BEMatrix4::operator*(const BEMatrix4& _rhs) const noexcept
 	return mat;
 }
 
-constexpr BEMatrix4 BEMatrix4::operator+(const BEMatrix4& _rhs) const noexcept
+inline BEMatrix4 BEMatrix4::operator+(const BEMatrix4& _rhs) const 
 {
 	return { m00 + _rhs.m00, m01 + _rhs.m01, m02 + _rhs.m02, m03 + _rhs.m03
 		   , m10 + _rhs.m10, m11 + _rhs.m11, m12 + _rhs.m12, m13 + _rhs.m13
@@ -58,7 +58,7 @@ constexpr BEMatrix4 BEMatrix4::operator+(const BEMatrix4& _rhs) const noexcept
 		   , m30 + _rhs.m30, m31 + _rhs.m31, m32 + _rhs.m32, m33 + _rhs.m33 };
 }
 
-constexpr BEMatrix4 BEMatrix4::operator-(const BEMatrix4& _rhs) const noexcept
+inline BEMatrix4 BEMatrix4::operator-(const BEMatrix4& _rhs) const 
 {
 	return { m00 - _rhs.m00, m01 - _rhs.m01, m02 - _rhs.m02, m03 - _rhs.m03
 		   , m10 - _rhs.m10, m11 - _rhs.m11, m12 - _rhs.m12, m13 - _rhs.m13
@@ -66,7 +66,7 @@ constexpr BEMatrix4 BEMatrix4::operator-(const BEMatrix4& _rhs) const noexcept
 		   , m30 - _rhs.m30, m31 - _rhs.m31, m32 - _rhs.m32, m33 - _rhs.m33 };
 }
 
-constexpr bool BEMatrix4::operator==(const BEMatrix4& _rhs) const noexcept
+inline bool BEMatrix4::operator==(const BEMatrix4& _rhs) const 
 {
 	return m00 == _rhs.m00 && m01 == _rhs.m01 && m02 == _rhs.m02 && m03 == _rhs.m03
 		&& m10 == _rhs.m10 && m11 == _rhs.m11 && m12 == _rhs.m12 && m13 == _rhs.m13
@@ -74,7 +74,7 @@ constexpr bool BEMatrix4::operator==(const BEMatrix4& _rhs) const noexcept
 		&& m30 == _rhs.m30 && m31 == _rhs.m31 && m32 == _rhs.m32 && m33 == _rhs.m33;
 }
 
-constexpr bool BEMatrix4::operator!=(const BEMatrix4& _rhs) const noexcept
+inline bool BEMatrix4::operator!=(const BEMatrix4& _rhs) const 
 {
 	return m00 != _rhs.m00 || m01 != _rhs.m01 || m02 != _rhs.m02 || m03 != _rhs.m03
 		|| m10 != _rhs.m10 || m11 != _rhs.m11 || m12 != _rhs.m12 || m13 != _rhs.m13
@@ -82,7 +82,7 @@ constexpr bool BEMatrix4::operator!=(const BEMatrix4& _rhs) const noexcept
 		|| m30 != _rhs.m30 || m31 != _rhs.m31 || m32 != _rhs.m32 || m33 != _rhs.m33;
 }
 
-constexpr BEMatrix4& BEMatrix4::operator+=(const BEMatrix4& _rhs) noexcept
+inline BEMatrix4& BEMatrix4::operator+=(const BEMatrix4& _rhs) 
 {
 	m00 += _rhs.m00; m01 += _rhs.m01; m02 += _rhs.m02; m03 += _rhs.m03;
 	m10 += _rhs.m10; m11 += _rhs.m11; m12 += _rhs.m12; m13 += _rhs.m13;
@@ -91,7 +91,7 @@ constexpr BEMatrix4& BEMatrix4::operator+=(const BEMatrix4& _rhs) noexcept
 	return *this;
 }
 
-constexpr BEMatrix4& BEMatrix4::operator-=(const BEMatrix4& _rhs) noexcept
+inline BEMatrix4& BEMatrix4::operator-=(const BEMatrix4& _rhs) 
 {
 	m00 -= _rhs.m00; m01 -= _rhs.m01; m02 -= _rhs.m02; m03 -= _rhs.m03;
 	m10 -= _rhs.m10; m11 -= _rhs.m11; m12 -= _rhs.m12; m13 -= _rhs.m13;
@@ -100,7 +100,7 @@ constexpr BEMatrix4& BEMatrix4::operator-=(const BEMatrix4& _rhs) noexcept
 	return *this;
 }
 
-constexpr BEMatrix4& BEMatrix4::operator*=(const BEMatrix4& _rhs) noexcept
+inline BEMatrix4& BEMatrix4::operator*=(const BEMatrix4& _rhs) 
 {
 	BEMatrix4 mat{ *this };
 	m00 = (mat.m00 * _rhs.m00) + (mat.m01 * _rhs.m10) + (mat.m02 * _rhs.m20) + (mat.m03 * _rhs.m30);
@@ -122,7 +122,7 @@ constexpr BEMatrix4& BEMatrix4::operator*=(const BEMatrix4& _rhs) noexcept
 	return *this;
 }
 
-constexpr BEMatrix4& BEMatrix4::operator*=(float _rhs) noexcept
+inline BEMatrix4& BEMatrix4::operator*=(float _rhs) 
 {
 	m00 *= _rhs; m01 *= _rhs; m02 *= _rhs; m03 *= _rhs;
 	m10 *= _rhs; m11 *= _rhs; m12 *= _rhs; m13 *= _rhs;
@@ -131,7 +131,7 @@ constexpr BEMatrix4& BEMatrix4::operator*=(float _rhs) noexcept
 	return *this;
 }
 
-constexpr BEMatrix4 BEMatrix4::GetTransposeMatrix() const noexcept
+inline BEMatrix4 BEMatrix4::GetTransposeMatrix() const 
 {
 	return { m00, m10, m20, m30,
 			 m01, m11, m21, m31,
@@ -139,7 +139,7 @@ constexpr BEMatrix4 BEMatrix4::GetTransposeMatrix() const noexcept
 			 m03, m13, m23, m33 };
 }
 
-constexpr float BEMatrix4::GetMatrixDeterminant() const noexcept
+inline float BEMatrix4::GetMatrixDeterminant() const 
 {
 	return
 		(m03 * m12 * m21 * m30) - (m02 * m13 * m21 * m30) - (m03 * m11 * m22 * m30) + (m01 * m13 * m22 * m30) + (m02 * m11 * m23 * m30) - (m01 * m12 * m23 * m30) -
@@ -148,7 +148,7 @@ constexpr float BEMatrix4::GetMatrixDeterminant() const noexcept
 		(m02 * m11 * m20 * m33) + (m01 * m12 * m20 * m33) + (m02 * m10 * m21 * m33) - (m00 * m12 * m21 * m33) - (m01 * m10 * m22 * m33) + (m00 * m11 * m22 * m33);
 }
 
-constexpr bool BEMatrix4::GetInverseMatrix(BEMatrix4& _outResult) const noexcept
+inline bool BEMatrix4::GetInverseMatrix(BEMatrix4& _outResult) const 
 {
 	_outResult = BEMatrix4();
 	float determinant = GetMatrixDeterminant();
@@ -178,4 +178,20 @@ constexpr bool BEMatrix4::GetInverseMatrix(BEMatrix4& _outResult) const noexcept
 	_outResult.m33 = ((m01 * m12 * m20) - (m02 * m11 * m20) + (m02 * m10 * m21) - (m00 * m12 * m21) - (m01 * m10 * m22) + (m00 * m11 * m22)) * detInv;
 
 	return true;
+}
+
+inline std::string BEMatrix4::ToString() const
+{
+	std::string result = " :: Matrix ::\n";
+
+	for (int i = 0, iMax = 4; i < iMax; i++)
+	{
+		for (int j = 0, jMax = 4; j < jMax; j++)
+		{
+			result += std::to_string(arr[i][j]) + "\t";
+		}
+		result += "\n";
+	}
+
+	return result;
 }

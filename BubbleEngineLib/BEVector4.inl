@@ -1,80 +1,87 @@
 #include <math.h>
+#include "BEVector4.h"
+#include "BEMatrix4.h"
 
-inline BEVector4::BEVector4(float _x, float _y, float _z, float _w)
+inline BEVector4::BEVector4(float _x, float _y, float _z, float _w) 
+	: x(_x), y(_y), z(_z), w(_w)
 {
-	coordinate.x = _x;
-	coordinate.y = _y;
-	coordinate.z = _z;
-	coordinate.w = _w;
 }
 
-inline BEVector4 BEVector4::operator*(const float _rhs) const
+inline BEVector4 BEVector4::operator*(const float _rhs) const 
 {
 	return BEVector4(
-		coordinate.x * _rhs, 
-		coordinate.y * _rhs, 
-		coordinate.z * _rhs, 
-		coordinate.w * _rhs
+		x * _rhs, 
+		y * _rhs, 
+		z * _rhs, 
+		w * _rhs
 	);
 }
 
-inline BEVector4 BEVector4::operator+(const BEVector4& _rhs) const
+inline BEVector4 BEVector4::operator+(const BEVector4& _rhs) const 
 {
 	return BEVector4(
-		coordinate.x + _rhs.coordinate.x, 
-		coordinate.y + _rhs.coordinate.y, 
-		coordinate.z + _rhs.coordinate.z, 
-		coordinate.w + _rhs.coordinate.w
+		x + _rhs.x, 
+		y + _rhs.y, 
+		z + _rhs.z, 
+		w + _rhs.w
 	);
 }
 
-inline BEVector4 BEVector4::operator-(const BEVector4& _rhs) const
+inline BEVector4 BEVector4::operator-(const BEVector4& _rhs) const 
 {
 	return BEVector4(
-		coordinate.x - _rhs.coordinate.x,
-		coordinate.y - _rhs.coordinate.y,
-		coordinate.z - _rhs.coordinate.z,
-		coordinate.w + _rhs.coordinate.w
+		x - _rhs.x,
+		y - _rhs.y,
+		z - _rhs.z,
+		w + _rhs.w
 	);
 }
 
-inline bool BEVector4::operator==(const BEVector4& _rhs) const
+inline bool BEVector4::operator==(const BEVector4& _rhs) const 
 {
-	return	coordinate.x == _rhs.coordinate.x &&
-		coordinate.y == _rhs.coordinate.y &&
-		coordinate.z == _rhs.coordinate.z &&
-		coordinate.w == _rhs.coordinate.w;
+	return	x == _rhs.x &&
+		y == _rhs.y &&
+		z == _rhs.z &&
+		w == _rhs.w;
 }
 
-inline bool BEVector4::operator!=(const BEVector4& _rhs) const
+inline bool BEVector4::operator!=(const BEVector4& _rhs) const 
 {
-	return	coordinate.x != _rhs.coordinate.x &&
-		coordinate.y != _rhs.coordinate.y &&
-		coordinate.z != _rhs.coordinate.z &&
-		coordinate.w != _rhs.coordinate.w;
+	return	x != _rhs.x &&
+		y != _rhs.y &&
+		z != _rhs.z &&
+		w != _rhs.w;
 }
 
-inline float BEVector4::GetLength() const
+inline BEVector4 BEVector4::operator*(BEMatrix4 _rhs) const 
+{
+	return {x * _rhs.m00 + y * _rhs.m10 + z * _rhs.m20 + w * _rhs.m30,
+			x * _rhs.m01 + y * _rhs.m11 + z * _rhs.m21 + w * _rhs.m31,
+			x * _rhs.m02 + y * _rhs.m12 + z * _rhs.m22 + w * _rhs.m32,
+			x * _rhs.m03 + y * _rhs.m13 + z * _rhs.m23 + w * _rhs.m33 };
+}
+
+inline float BEVector4::GetLength() const 
 {
 	return sqrtf(
-		coordinate.x * coordinate.x +
-		coordinate.y * coordinate.y +
-		coordinate.z * coordinate.z +
-		coordinate.w * coordinate.w
+		x * x +
+		y * y +
+		z * z +
+		w * w
 	);
 }
 
-inline BEVector4 BEVector4::GetNormalized() const
+inline BEVector4 BEVector4::GetNormalized() const 
 {
 	float length = GetLength();
 
-	return BEVector4(coordinate.x / length, coordinate.y / length, coordinate.z / length, coordinate.w / length);
+	return BEVector4(x / length, y / length, z / length, w / length);
 }
 
-inline float BEVector4::Dot(const BEVector4& _rhs) const
+inline float BEVector4::Dot(const BEVector4& _rhs) const 
 {
-	return	coordinate.x * _rhs.coordinate.x +
-		coordinate.y * _rhs.coordinate.y +
-		coordinate.z * _rhs.coordinate.z +
-		coordinate.z * _rhs.coordinate.z;
+	return	x * _rhs.x +
+		y * _rhs.y +
+		z * _rhs.z +
+		z * _rhs.z;
 }
