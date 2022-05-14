@@ -21,6 +21,9 @@
     <ClInclude Include="BEMatrix3.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="BEMatrix4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="BEVector2.inl">
@@ -36,6 +39,9 @@
       <Filter>Math</Filter>
     </None>
     <None Include="BEMatrix3.inl">
+      <Filter>Math</Filter>
+    </None>
+    <None Include="BEMatrix4.inl">
       <Filter>Math</Filter>
     </None>
   </ItemGroup>

@@ -1,154 +1,132 @@
 #include "BEMatrix2.h"
 #include <math.h>
 
-inline BEMatrix2::BEMatrix2(float _00, float _01, float _10, float _11)
+constexpr BEMatrix2::BEMatrix2() noexcept
+    : m00(1.0f), m01(0.0f)
+    , m10(0.0f), m11(1.0f)
 {
-	element.m00 = _00;
-	element.m01 = _01;
-	element.m10 = _10;
-	element.m11 = _11;
 }
 
-inline BEMatrix2 BEMatrix2::operator*(const float _rhs) const
+constexpr BEMatrix2::BEMatrix2(float _00, float _01, float _10, float _11) noexcept
+    : m00(m00), m01(m01)
+    , m10(m10), m11(m11)
 {
-	BEMatrix2 result = BEMatrix2(*this);
-
-	for (int i = 0, iMax = 2; i < iMax; i++)
-	{
-		for (int j = 0, jMax = 2; j < jMax; j++)
-		{
-			result.arr[i][j] *= _rhs;
-		}
-	}
-
-	return result;
 }
 
-inline BEMatrix2 BEMatrix2::operator+(const BEMatrix2& _rhs) const
+constexpr bool BEMatrix2::operator==(const BEMatrix2& _rhs) const noexcept
 {
-	BEMatrix2 result = BEMatrix2(*this);
-
-	for (int i = 0, iMax = 2; i < iMax; i++)
-	{
-		for (int j = 0, jMax = 2; j < jMax; j++)
-		{
-			result.arr[i][j] = arr[i][j] + _rhs.arr[i][j];
-		}
-	}
-
-	return result;
+    return m00 == _rhs.m00 && m01 == _rhs.m01
+        && m10 == _rhs.m10 && m11 == _rhs.m11;
 }
 
-inline BEMatrix2 BEMatrix2::operator-(const BEMatrix2& _rhs) const
+constexpr bool BEMatrix2::operator!=(const BEMatrix2& _rhs) const noexcept
 {
-	BEMatrix2 result = BEMatrix2(*this);
-
-	for (int i = 0, iMax = 2; i < iMax; i++)
-	{
-		for (int j = 0, jMax = 2; j < jMax; j++)
-		{
-			result.arr[i][j] = arr[i][j] - _rhs.arr[i][j];
-		}
-	}
-
-	return result;
+    return m00 != _rhs.m00 || m01 != _rhs.m01
+        || m10 != _rhs.m10 || m11 != _rhs.m11;
 }
 
-inline BEMatrix2 BEMatrix2::operator*(const BEMatrix2& _rhs) const
+constexpr BEMatrix2 BEMatrix2::operator+(const BEMatrix2& _rhs) const noexcept
 {
-	BEMatrix2 result = BEMatrix2(*this);
-
-	for (int i = 0, iMax = 2; i < iMax; i++)
-	{
-		for (int j = 0, jMax = 2; j < jMax; j++)
-		{
-			result.arr[i][j] = 0;
-
-			for (int k = 0,kMax = 2; k < kMax; k++)
-			{
-				result.arr[i][j] += arr[i][k] * _rhs.arr[j][k];
-			}
-		}
-	}
-
-	return result; 
+    return { m00 + _rhs.m00, m01 + _rhs.m01
+           , m10 + _rhs.m10, m11 + _rhs.m11 };
 }
 
-inline bool BEMatrix2::operator==(const BEMatrix2& _rhs) const
+constexpr BEMatrix2 BEMatrix2::operator-(const BEMatrix2& _rhs) const noexcept
 {
-	for (int i = 0, iMax = 2; i < iMax; i++)
-	{
-		for (int j = 0, jMax = 2; j < jMax; j++)
-		{
-			if (arr[i][j] != _rhs.arr[i][j])
-			{
-				return false;
-			}
-		}
-	}
-
-	return true;
+    return { m00 - _rhs.m00, m01 - _rhs.m01
+           , m10 - _rhs.m10, m11 - _rhs.m11 };
 }
 
-inline bool BEMatrix2::operator!=(const BEMatrix2& _rhs) const
+constexpr BEMatrix2 BEMatrix2::operator*(const BEMatrix2& _rhs) const noexcept
 {
-	for (int i = 0, iMax = 2; i < iMax; i++)
-	{
-		for (int j = 0, jMax = 2; j < jMax; j++)
-		{
-			if (arr[i][j] == _rhs.arr[i][j])
-			{
-				return false;
-			}
-		}
-	}
-
-	return true;
+    return { (m00 * _rhs.m00 + m01 * _rhs.m10), (m00 * _rhs.m01 + m01 * _rhs.m11)
+           , (m10 * _rhs.m00 + m11 * _rhs.m10), (m10 * _rhs.m01 + m11 * _rhs.m11) };
 }
 
-inline BEMatrix2 BEMatrix2::GetTransposeMatrix() const
+constexpr BEMatrix2 BEMatrix2::operator*(const float _rhs) const noexcept
 {
-	BEMatrix2 result = BEMatrix2(*this);
-
-	for (int i = 0, iMax = 2; i < iMax; i++)
-	{
-		for (int j = 0, jMax = 2; j < jMax; j++)
-		{
-			result.arr[i][j] = arr[j][i];
-		}
-	}
-
-	return result;
+    return { (m00 * _rhs), (m01 * _rhs)
+           , (m10 * _rhs), (m11 * _rhs) };
 }
 
-inline bool BEMatrix2::GetInverseMatrix(BEMatrix2& _outResult) const
+constexpr BEMatrix2& BEMatrix2::operator+=(const BEMatrix2& _rhs) noexcept
 {
-	float determinant = 1 / (arr[0][0] * arr[1][1] - arr[0][1] * arr[1][0]);
-
-	if ( abs(determinant) < FLT_EPSILON)
-	{
-		_outResult = BEMatrix2(1.0f, 0.0f, 0.0f, 1.0f);
-		return false;
-	}
-
-	_outResult = BEMatrix2(arr[1][1], -arr[0][1], -arr[1][0], arr[0][0]);
-	_outResult = _outResult * determinant;
-
-	return true;
+    m00 += _rhs.m00;
+    m01 += _rhs.m01;
+    m10 += _rhs.m10;
+    m11 += _rhs.m11;
+    return *this;
 }
 
-inline std::string BEMatrix2::ToString() const
+constexpr BEMatrix2& BEMatrix2::operator-=(const BEMatrix2& _rhs) noexcept
 {
-	std::string result = " :: Matrix ::\n";
+    m00 -= _rhs.m00;
+    m01 -= _rhs.m01;
+    m10 -= _rhs.m10;
+    m11 -= _rhs.m11;
+    return *this;
+}
 
-	for (int i = 0, iMax = 2; i < iMax; i++)
-	{
-		for (int j = 0, jMax = 2; j < jMax; j++)
-		{
-			result += std::to_string(arr[i][j]) + "\t";
-		}
-		result += "\n";
-	}
+constexpr BEMatrix2& BEMatrix2::operator*=(const BEMatrix2& _rhs) noexcept
+{
+    BEMatrix2 mat{ *this };
+    m00 = (mat.m00 * _rhs.m00) + (mat.m01 * _rhs.m10);
+    m01 = (mat.m00 * _rhs.m01) + (mat.m01 * _rhs.m11);
+    m10 = (mat.m10 * _rhs.m00) + (mat.m11 * _rhs.m10);
+    m11 = (mat.m10 * _rhs.m01) + (mat.m11 * _rhs.m11);
+    return *this;
+}
 
-	return result;
+constexpr BEMatrix2& BEMatrix2::operator*=(float f) noexcept
+{
+    m00 *= f;
+    m01 *= f;
+    m10 *= f;
+    m11 *= f;
+    return *this;
+}
+
+constexpr BEMatrix2 BEMatrix2::GetTransposeMatrix() const noexcept
+{
+    return { m00, m10, m01, m11 };
+}
+
+constexpr bool BEMatrix2::GetInverseMatrix(BEMatrix2& _outResult) const noexcept
+{
+    _outResult = BEMatrix2();
+    float determinant = GetMatrixDeterminant();
+
+    if ( abs(determinant) < FLT_EPSILON)
+    {
+        return false;
+    }
+
+    float detInv = 1.0f / determinant;
+    _outResult.m00 = m11 * detInv;
+    _outResult.m01 = -m01 * detInv;
+    _outResult.m10 = -m10 * detInv;
+    _outResult.m11 = m00 * detInv;
+
+    return true;
+}
+
+constexpr float BEMatrix2::GetMatrixDeterminant() const noexcept
+{
+    return m00 * m11 - m01 * m10;
+}
+
+inline constexpr std::string BEMatrix2::ToString() const
+{
+    std::string result = " :: Matrix ::\n";
+
+    for (int i = 0, iMax = 2; i < iMax; i++)
+    {
+        for (int j = 0, jMax = 2; j < jMax; j++)
+        {
+            result += std::to_string(arr[i][j]) + "\t";
+        }
+        result += "\n";
+    }
+
+    return result;
 }

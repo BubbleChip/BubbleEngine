@@ -1,255 +1,170 @@
 #include "BEMatrix3.h"
 #include <math.h>
-#include <iostream>
 
-inline BEMatrix3::BEMatrix3(float _00, float _01, float _02, float _10, float _11, float _12, float _20, float _21, float _22)
+constexpr BEMatrix3::BEMatrix3()
+	: m00(1.0f), m01(0.0f), m02(0.0f)
+	, m10(0.0f), m11(1.0f), m12(0.0f)
+	, m20(0.0f), m21(0.0f), m22(1.0f)
 {
-	element.m00 = _00;
-	element.m01 = _01;
-	element.m02 = _02;
-	element.m10 = _10;
-	element.m11 = _11;
-	element.m12 = _12;
-	element.m20 = _20;
-	element.m21 = _21;
-	element.m22 = _22;
 }
 
-inline BEMatrix3 BEMatrix3::operator*(const float _rhs) const
+constexpr BEMatrix3::BEMatrix3(float _00, float _01, float _02, float _10, float _11, float _12, float _20, float _21, float _22)
+	: m00(_00), m01(_01), m02(_02)
+	, m10(_10), m11(_11), m12(_12)
+	, m20(_20), m21(_21), m22(_22)
 {
-	BEMatrix3 result = BEMatrix3(*this);
-
-	for (int i = 0, iMax = ROW_COL_COUNT; i < iMax; i++)
-	{
-		for (int j = 0, jMax = ROW_COL_COUNT; j < jMax; j++)
-		{
-			result.arr[i][j] *= _rhs;
-		}
-	}
-
-	return result;
 }
 
-inline BEMatrix3 BEMatrix3::operator+(const BEMatrix3& _rhs) const
+constexpr BEMatrix3 BEMatrix3::operator*(const float _rhs) const
 {
-	BEMatrix3 result = BEMatrix3(*this);
+	return { m00 * _rhs, m01 * _rhs, m02 * _rhs,
+			 m10 * _rhs, m11 * _rhs, m12 * _rhs,
+			 m20 * _rhs, m21 * _rhs, m22 * _rhs };
 
-	for (int i = 0, iMax = ROW_COL_COUNT; i < iMax; i++)
-	{
-		for (int j = 0, jMax = ROW_COL_COUNT; j < jMax; j++)
-		{
-			result.arr[i][j] = arr[i][j] + _rhs.arr[i][j];
-		}
-	}
-
-	return result;
 }
 
-inline BEMatrix3 BEMatrix3::operator-(const BEMatrix3& _rhs) const
+constexpr BEMatrix3 BEMatrix3::operator*(const BEMatrix3& _rhs) const
 {
-	BEMatrix3 result = BEMatrix3(*this);
-
-	for (int i = 0, iMax = ROW_COL_COUNT; i < iMax; i++)
-	{
-		for (int j = 0, jMax = ROW_COL_COUNT; j < jMax; j++)
-		{
-			result.arr[i][j] = arr[i][j] - _rhs.arr[i][j];
-		}
-	}
-
-	return result;
+	BEMatrix3 mat;
+	mat.m00 = (m00 * _rhs.m00) + (m01 * _rhs.m10) + (m02 * _rhs.m20);
+	mat.m01 = (m00 * _rhs.m01) + (m01 * _rhs.m11) + (m02 * _rhs.m21);
+	mat.m02 = (m00 * _rhs.m02) + (m01 * _rhs.m12) + (m02 * _rhs.m22);
+	mat.m10 = (m10 * _rhs.m00) + (m11 * _rhs.m10) + (m12 * _rhs.m20);
+	mat.m11 = (m10 * _rhs.m01) + (m11 * _rhs.m11) + (m12 * _rhs.m21);
+	mat.m12 = (m10 * _rhs.m02) + (m11 * _rhs.m12) + (m12 * _rhs.m22);
+	mat.m20 = (m20 * _rhs.m00) + (m21 * _rhs.m10) + (m22 * _rhs.m20);
+	mat.m21 = (m20 * _rhs.m01) + (m21 * _rhs.m11) + (m22 * _rhs.m21);
+	mat.m22 = (m20 * _rhs.m02) + (m21 * _rhs.m12) + (m22 * _rhs.m22);
+	return mat;
 }
 
-inline BEMatrix3 BEMatrix3::operator*(const BEMatrix3& _rhs) const
+constexpr BEMatrix3 BEMatrix3::operator+(const BEMatrix3& _rhs) const
 {
-	BEMatrix3 result = BEMatrix3(*this);
-
-	for (int i = 0, iMax = ROW_COL_COUNT; i < iMax; i++)
-	{
-		for (int j = 0, jMax = ROW_COL_COUNT; j < jMax; j++)
-		{
-			result.arr[i][j] = 0;
-
-			for (int k = 0, kMax = ROW_COL_COUNT; k < kMax; k++)
-			{
-				result.arr[i][j] += arr[i][k] * _rhs.arr[j][k];
-			}
-		}
-	}
-
-	return result;
+	return { m00 + _rhs.m00, m01 + _rhs.m01, m02 + _rhs.m02,
+			 m10 + _rhs.m10, m11 + _rhs.m11, m12 + _rhs.m12,
+			 m20 + _rhs.m20, m21 + _rhs.m21, m22 + _rhs.m22 };
 }
 
-inline bool BEMatrix3::operator==(const BEMatrix3& _rhs) const
+constexpr BEMatrix3 BEMatrix3::operator-(const BEMatrix3& _rhs) const
 {
-	for (int i = 0, iMax = ROW_COL_COUNT; i < iMax; i++)
-	{
-		for (int j = 0, jMax = ROW_COL_COUNT; j < jMax; j++)
-		{
-			if (arr[i][j] != _rhs.arr[i][j])
-			{
-				return false;
-			}
-		}
-	}
-
-	return true;
+	return { m00 - _rhs.m00, m01 - _rhs.m01, m02 - _rhs.m02,
+			 m10 - _rhs.m10, m11 - _rhs.m11, m12 - _rhs.m12,
+			 m20 - _rhs.m20, m21 - _rhs.m21, m22 - _rhs.m22 };
 }
 
-inline bool BEMatrix3::operator!=(const BEMatrix3& _rhs) const
+constexpr BEMatrix3& BEMatrix3::operator*=(const float _rhs) noexcept
 {
-	for (int i = 0, iMax = ROW_COL_COUNT; i < iMax; i++)
-	{
-		for (int j = 0, jMax = ROW_COL_COUNT; j < jMax; j++)
-		{
-			if (arr[i][j] == _rhs.arr[i][j])
-			{
-				return false;
-			}
-		}
-	}
-
-	return true;
+	m00 *= _rhs; m01 *= _rhs; m02 *= _rhs;
+	m10 *= _rhs; m11 *= _rhs; m12 *= _rhs;
+	m20 *= _rhs; m21 *= _rhs; m22 *= _rhs;
+	return *this;
 }
 
-inline BEMatrix3 BEMatrix3::GetTransposeMatrix() const
+constexpr BEMatrix3& BEMatrix3::operator*=(const BEMatrix3& _rhs) noexcept
 {
-	BEMatrix3 result = BEMatrix3(*this);
-
-	for (int i = 0, iMax = ROW_COL_COUNT; i < iMax; i++)
-	{
-		for (int j = 0, jMax = ROW_COL_COUNT; j < jMax; j++)
-		{
-			result.arr[i][j] = arr[j][i];
-		}
-	}
-
-	return result;
+	BEMatrix3 mat{ *this };
+	m00 = (mat.m00 * _rhs.m00) + (mat.m01 * _rhs.m10) + (mat.m02 * _rhs.m20);
+	m01 = (mat.m00 * _rhs.m01) + (mat.m01 * _rhs.m11) + (mat.m02 * _rhs.m21);
+	m02 = (mat.m00 * _rhs.m02) + (mat.m01 * _rhs.m12) + (mat.m02 * _rhs.m22);
+	m10 = (mat.m10 * _rhs.m00) + (mat.m11 * _rhs.m10) + (mat.m12 * _rhs.m20);
+	m11 = (mat.m10 * _rhs.m01) + (mat.m11 * _rhs.m11) + (mat.m12 * _rhs.m21);
+	m12 = (mat.m10 * _rhs.m02) + (mat.m11 * _rhs.m12) + (mat.m12 * _rhs.m22);
+	m20 = (mat.m20 * _rhs.m00) + (mat.m21 * _rhs.m10) + (mat.m22 * _rhs.m20);
+	m21 = (mat.m20 * _rhs.m01) + (mat.m21 * _rhs.m11) + (mat.m22 * _rhs.m21);
+	m22 = (mat.m20 * _rhs.m02) + (mat.m21 * _rhs.m12) + (mat.m22 * _rhs.m22);
+	return *this;
 }
 
-inline float BEMatrix3::GetCofactor(const float _minorMatrixArray[], const int _rowColCount, const int _targetRow, const int _targetCol) const
+constexpr BEMatrix3& BEMatrix3::operator+=(const BEMatrix3& _rhs) noexcept
 {
-	if (_rowColCount == 1)
-	{
-		int negative = (_targetCol + _targetRow) % 2 != 0 ? -1 : 1;
-
-		std::cout << _minorMatrixArray[0] * negative << std::endl;
-		return _minorMatrixArray[0] * negative;
-	}
-
-	int minorSize = _rowColCount - 1;
-	float* minorMatrix = new float[minorSize * minorSize];
-
-	int targetRow = 0;
-	for (int i = 0; i < _rowColCount; i++)
-	{
-		if (i == _targetRow)
-		{
-			continue;
-		}
-
-		int targetCol = 0;
-		for (int j = 0; j < _rowColCount; j++)
-		{
-			if (j == _targetCol)
-			{
-				continue;
-			}
-
-			minorMatrix[targetRow * minorSize + targetCol] = _minorMatrixArray[i * _rowColCount + j];
-			targetCol++;
-		}
-
-		targetRow++;
-	}
-
-	float minorCofactor = 0.0f;
-	for (int i = 0; i < minorSize; i++)
-	{
-		for (int j = 0; j < minorSize; j++)
-		{
-			minorCofactor += GetCofactor(minorMatrix, minorSize, _targetRow, _targetCol);
-		}
-	}
-		
-	delete[] minorMatrix;
-
-	return minorCofactor;
+	m00 += _rhs.m00;
+	m01 += _rhs.m01;
+	m02 += _rhs.m02;
+	m10 += _rhs.m10;
+	m11 += _rhs.m11;
+	m12 += _rhs.m12;
+	m20 += _rhs.m20;
+	m21 += _rhs.m21;
+	m22 += _rhs.m22;
+	return *this;
 }
 
-inline float BEMatrix3::GetMatrixDeterminant() const
+constexpr BEMatrix3& BEMatrix3::operator-=(const BEMatrix3& _rhs) noexcept
 {
-//
-//
-//	float result = 0.0f;
-//	int minorMatrixRowColCount = _rowColCount - 1;
-//
-//	for (int k = 0, kMax = _rowColCount; k < kMax; k++)
-//	{
-//		float* minorMatrix = new float[minorMatrixRowColCount];
-//
-//		int targetRow = 0;
-//		for (int i = 1; i < _rowColCount; i++)
-//		{
-//			if (k == j)
-//			{
-//				continue;
-//			}
-//
-//			int targetCol = 0;
-//			for (int j = 0; j < _rowColCount; j++)
-//			{
-//				if (k == j)
-//				{
-//					continue;
-//				}
-//
-//				minorMatrix[targetRow * minorMatrixRowColCount + targetCol] = _matrixArray[i * _rowColCount + j];
-//				targetCol++;
-//			}
-//
-//			targetRow++;
-//		}
-//
-//		result += _matrixArray[k] * roundf(powf(-1, 1 + k)) * GetMatrixDeterminant(minorMatrix, minorMatrixRowColCount);
-//
-//		//delete[] minorMatrix;
-//	}
-//
-//
-//	return result;
-
-	return GetCofactor(arr2, ROW_COL_COUNT, 0, 0);
+	m00 -= _rhs.m00;
+	m01 -= _rhs.m01;
+	m02 -= _rhs.m02;
+	m10 -= _rhs.m10;
+	m11 -= _rhs.m11;
+	m12 -= _rhs.m12;
+	m20 -= _rhs.m20;
+	m21 -= _rhs.m21;
+	m22 -= _rhs.m22;
+	return *this;
 }
 
-inline bool BEMatrix3::GetInverseMatrix(BEMatrix3& _outResult) const
+constexpr bool BEMatrix3::operator==(const BEMatrix3& _rhs) const
 {
-	/*float determinant = GetMatrixDeterminant(arr2, ROW_COL_COUNT);
+	return m00 == _rhs.m00 && m01 == _rhs.m01 && m02 == _rhs.m02
+		&& m10 == _rhs.m10 && m11 == _rhs.m11 && m12 == _rhs.m12
+		&& m20 == _rhs.m20 && m21 == _rhs.m21 && m22 == _rhs.m22;
+}
 
-	if (abs(determinant) < FLT_EPSILON)
+constexpr bool BEMatrix3::operator!=(const BEMatrix3& _rhs) const
+{
+	return m00 != _rhs.m00 || m01 != _rhs.m01 || m02 != _rhs.m02
+		|| m10 != _rhs.m10 || m11 != _rhs.m11 || m12 != _rhs.m12
+		|| m20 != _rhs.m20 || m21 != _rhs.m21 || m22 != _rhs.m22;
+}
+
+constexpr BEMatrix3 BEMatrix3::GetTransposeMatrix() const
+{
+	return { m00, m10, m20,
+			 m01, m11, m21,
+			 m02, m12, m22 };
+}
+
+constexpr float BEMatrix3::GetMatrixDeterminant() const
+{
+	return  (m00 * m11 * m22) +
+			(m10 * m21 * m02) +
+			(m20 * m01 * m12) -
+			(m20 * m11 * m02) -
+			(m10 * m01 * m22) -
+			(m00 * m21 * m12);
+}
+
+constexpr bool BEMatrix3::GetInverseMatrix(BEMatrix3& _outResult) const
+{
+	_outResult = BEMatrix3();
+	float determinant = GetMatrixDeterminant();
+
+	if ( abs(determinant ) < FLT_EPSILON)
 	{
-		_outResult = BEMatrix3(
-			1, 0, 0,
-			0, 1, 0,
-			0, 0, 1
-		);
 		return false;
-	}
+	} 
 
-	_outResult = BEMatrix3(*this);
-	_outResult = _outResult * determinant;
+	float detInv = 1.0f / determinant;
+	_outResult.m00 = (m11 * m22 - m21 * m12) * detInv;
+	_outResult.m01 = (m21 * m02 - m01 * m22) * detInv;
+	_outResult.m02 = (m01 * m12 - m11 * m02) * detInv;
+	_outResult.m10 = (m20 * m12 - m10 * m22) * detInv;
+	_outResult.m11 = (m00 * m22 - m20 * m02) * detInv;
+	_outResult.m12 = (m10 * m02 - m00 * m12) * detInv;
+	_outResult.m20 = (m10 * m21 - m20 * m11) * detInv;
+	_outResult.m21 = (m20 * m01 - m00 * m21) * detInv;
+	_outResult.m22 = (m00 * m11 - m10 * m01) * detInv;
 
-
-	return true;*/
+	return true;
 }
 
-inline std::string BEMatrix3::ToString() const
+constexpr std::string BEMatrix3::ToString() const
 {
 	std::string result = " :: Matrix ::\n";
 
-	for (int i = 0, iMax = ROW_COL_COUNT; i < iMax; i++)
+	for (int i = 0, iMax = 3; i < iMax; i++)
 	{
-		for (int j = 0, jMax = ROW_COL_COUNT; j < jMax; j++)
+		for (int j = 0, jMax = 3; j < jMax; j++)
 		{
 			result += std::to_string(arr[i][j]) + "\t";
 		}
