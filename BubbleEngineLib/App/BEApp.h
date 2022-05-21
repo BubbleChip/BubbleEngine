@@ -1,6 +1,6 @@
 #pragma once
 
-#include "BEAppContextInterface.h"
+#include "ApplicationContext/BEAppContextInterface.h"
 
 class BEApp
 {

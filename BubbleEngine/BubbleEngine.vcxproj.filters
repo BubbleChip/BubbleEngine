@@ -26,28 +26,10 @@
     <ClCompile Include="winMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BEApp.cpp">
-      <Filter>Application</Filter>
-    </ClCompile>
-    <ClCompile Include="ApplicationContext.cpp">
-      <Filter>Application\Priavte\Win32</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Test_BubbleEngine\d3dx12.h">
+    <ClInclude Include="DXCore\BEGraphicsDevice.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BEAppContextInterface.h">
-      <Filter>Application</Filter>
-    </ClInclude>
-    <ClInclude Include="BEApp.h">
-      <Filter>Application</Filter>
-    </ClInclude>
-    <ClInclude Include="ApplicationContext.h">
-      <Filter>Application\Priavte\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="ApplicationPlatform.h">
-      <Filter>Application\Priavte</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

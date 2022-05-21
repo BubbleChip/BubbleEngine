@@ -6,73 +6,89 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BEVector2.h">
+    <ClInclude Include="Math\BEVector2.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="BEVector3.h">
+    <ClInclude Include="Math\BEVector3.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="BEVector4.h">
+    <ClInclude Include="Math\BEVector4.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="BEMatrix2.h">
+    <ClInclude Include="Math\BEMatrix2.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="BEMatrix3.h">
+    <ClInclude Include="Math\BEMatrix3.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="BEMatrix4.h">
+    <ClInclude Include="Math\BEMatrix4.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="BEAffineTransform2.h">
+    <ClInclude Include="Math\BEAffineTransform2.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="BELinearTransform2.h">
+    <ClInclude Include="Math\BELinearTransform2.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="BEAffineTransform3.h">
+    <ClInclude Include="Math\BEAffineTransform3.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="BELinearTransform3.h">
+    <ClInclude Include="Math\BELinearTransform3.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="BEMathLib.h">
+    <ClInclude Include="Math\BEMathLib.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="App\Platforms\ApplicationPlatform.h" />
+    <ClInclude Include="App\BEApp.h" />
+    <ClInclude Include="App\ApplicationContext\BEAppContextInterface.h" />
+    <ClInclude Include="DXCore\BEGraphicsDevice.h" />
+    <ClInclude Include="d3dx12.h" />
+    <ClInclude Include="BECore\BERefCounter.h" />
+    <ClInclude Include="BECore\BEInclude.h" />
+    <ClInclude Include="App\Platforms\Win32\ApplicationContext.h" />
+    <ClInclude Include="Window\BEWindow.h" />
+    <ClInclude Include="Window\WindowPlatform\Win32\Window.h" />
+    <ClInclude Include="Window\WindowPlatform\WindowPlatform.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="BEVector2.inl">
+    <None Include="Math\BEVector2.inl">
       <Filter>Math</Filter>
     </None>
-    <None Include="BEVector3.inl">
+    <None Include="Math\BEVector3.inl">
       <Filter>Math</Filter>
     </None>
-    <None Include="BEVector4.inl">
+    <None Include="Math\BEVector4.inl">
       <Filter>Math</Filter>
     </None>
-    <None Include="BEMatrix2.inl">
+    <None Include="Math\BEMatrix2.inl">
       <Filter>Math</Filter>
     </None>
-    <None Include="BEMatrix3.inl">
+    <None Include="Math\BEMatrix3.inl">
       <Filter>Math</Filter>
     </None>
-    <None Include="BEMatrix4.inl">
+    <None Include="Math\BEMatrix4.inl">
       <Filter>Math</Filter>
     </None>
-    <None Include="BEAffineTransform2.inl">
+    <None Include="Math\BEAffineTransform2.inl">
       <Filter>Math</Filter>
     </None>
-    <None Include="BELinearTransform2.inl">
+    <None Include="Math\BELinearTransform2.inl">
       <Filter>Math</Filter>
     </None>
-    <None Include="BEAffineTransform3.inl">
+    <None Include="Math\BEAffineTransform3.inl">
       <Filter>Math</Filter>
     </None>
-    <None Include="BELinearTransform3.inl">
+    <None Include="Math\BELinearTransform3.inl">
       <Filter>Math</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="App\BEApp.cpp" />
+    <ClCompile Include="DXCore\BEGraphicsDevice.cpp" />
+    <ClCompile Include="BECore\BERefCounter.cpp" />
+    <ClCompile Include="App\Platforms\Win32\ApplicationContext.cpp" />
+    <ClCompile Include="Window\BEWindow.cpp" />
+    <ClCompile Include="Window\WindowPlatform\Win32\Window.cpp" />
   </ItemGroup>
 </Project>

@@ -19,32 +19,48 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BEAffineTransform2.h" />
-    <ClInclude Include="BEAffineTransform3.h" />
-    <ClInclude Include="BELinearTransform2.h" />
-    <ClInclude Include="BELinearTransform3.h" />
-    <ClInclude Include="BEMathLib.h" />
-    <ClInclude Include="BEMatrix2.h" />
-    <ClInclude Include="BEMatrix3.h" />
-    <ClInclude Include="BEMatrix4.h" />
-    <ClInclude Include="BEVector2.h" />
-    <ClInclude Include="BEVector3.h" />
-    <ClInclude Include="BEVector4.h" />
+    <ClInclude Include="App\BEApp.h" />
+    <ClInclude Include="App\ApplicationContext\BEAppContextInterface.h" />
+    <ClInclude Include="App\Platforms\ApplicationPlatform.h" />
+    <ClInclude Include="App\Platforms\Win32\ApplicationContext.h" />
+    <ClInclude Include="BECore\BEInclude.h" />
+    <ClInclude Include="BECore\BERefCounter.h" />
+    <ClInclude Include="d3dx12.h" />
+    <ClInclude Include="DXCore\BEGraphicsDevice.h" />
+    <ClInclude Include="Math\BEAffineTransform2.h" />
+    <ClInclude Include="Math\BEAffineTransform3.h" />
+    <ClInclude Include="Math\BELinearTransform2.h" />
+    <ClInclude Include="Math\BELinearTransform3.h" />
+    <ClInclude Include="Math\BEMathLib.h" />
+    <ClInclude Include="Math\BEMatrix2.h" />
+    <ClInclude Include="Math\BEMatrix3.h" />
+    <ClInclude Include="Math\BEMatrix4.h" />
+    <ClInclude Include="Math\BEVector2.h" />
+    <ClInclude Include="Math\BEVector3.h" />
+    <ClInclude Include="Math\BEVector4.h" />
+    <ClInclude Include="Window\BEWindow.h" />
+    <ClInclude Include="Window\WindowPlatform\Win32\Window.h" />
+    <ClInclude Include="Window\WindowPlatform\WindowPlatform.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="BEAffineTransform2.inl" />
-    <None Include="BEAffineTransform3.inl" />
-    <None Include="BELinearTransform2.inl" />
-    <None Include="BELinearTransform3.inl" />
-    <None Include="BEMatrix2.inl" />
-    <None Include="BEMatrix3.inl" />
-    <None Include="BEMatrix4.inl" />
-    <None Include="BEVector2.inl" />
-    <None Include="BEVector3.inl" />
-    <None Include="BEVector4.inl" />
+    <None Include="Math\BEAffineTransform2.inl" />
+    <None Include="Math\BEAffineTransform3.inl" />
+    <None Include="Math\BELinearTransform2.inl" />
+    <None Include="Math\BELinearTransform3.inl" />
+    <None Include="Math\BEMatrix2.inl" />
+    <None Include="Math\BEMatrix3.inl" />
+    <None Include="Math\BEMatrix4.inl" />
+    <None Include="Math\BEVector2.inl" />
+    <None Include="Math\BEVector3.inl" />
+    <None Include="Math\BEVector4.inl" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="App\BEApp.cpp" />
+    <ClCompile Include="App\Platforms\Win32\ApplicationContext.cpp" />
+    <ClCompile Include="BECore\BERefCounter.cpp" />
+    <ClCompile Include="DXCore\BEGraphicsDevice.cpp" />
+    <ClCompile Include="Window\BEWindow.cpp" />
+    <ClCompile Include="Window\WindowPlatform\Win32\Window.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -125,6 +141,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <AdditionalIncludeDirectories>C:\Work\BubbleEngine\BubbleEngineLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -141,6 +158,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <AdditionalIncludeDirectories>C:\Work\BubbleEngine\BubbleEngineLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -157,6 +175,7 @@
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <AdditionalIncludeDirectories>C:\Work\BubbleEngine\BubbleEngineLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -173,6 +192,7 @@
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <AdditionalIncludeDirectories>C:\Work\BubbleEngine\BubbleEngineLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

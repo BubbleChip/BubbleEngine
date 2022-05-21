@@ -3,7 +3,9 @@
 #endif 
 
 #include <windows.h>
-#include "BEMathLib.h"
+#include "Math/BEMathLib.h"
+#include "BECore/BERefCounter.h"
+#include "BECore/BEInclude.h"
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 

@@ -1,5 +1,5 @@
 #include "BEApp.h"
-#include "ApplicationPlatform.h"
+#include "Platforms/ApplicationPlatform.h"
 
 BEApp::BEApp()
 	: context(nullptr)
