@@ -6,7 +6,7 @@ class BERefCounter
 public:
 	BERefCounter();
 
-protected:
+//protected:
 	virtual ~BERefCounter();
 
 	uint32_t AddRef();

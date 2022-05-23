@@ -25,8 +25,18 @@
     <ClInclude Include="App\Platforms\Win32\ApplicationContext.h" />
     <ClInclude Include="BECore\BEInclude.h" />
     <ClInclude Include="BECore\BERefCounter.h" />
-    <ClInclude Include="d3dx12.h" />
-    <ClInclude Include="DXCore\BEGraphicsDevice.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\CommandList.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\CommandQueue.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\d3dx12.h" />
+    <ClInclude Include="Graphics\BECommandList.h" />
+    <ClInclude Include="Graphics\BECommandQueue.h" />
+    <ClInclude Include="Graphics\BEGraphicsDevice.h" />
+    <ClInclude Include="BECore\BEObject.h" />
+    <ClInclude Include="Graphics\BESwapChain.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\d3dx12Include.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\GraphicsDevice.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\SwapChain.h" />
+    <ClInclude Include="Graphics\Platforms\GraphicsAPI.h" />
     <ClInclude Include="Math\BEAffineTransform2.h" />
     <ClInclude Include="Math\BEAffineTransform3.h" />
     <ClInclude Include="Math\BELinearTransform2.h" />
@@ -58,7 +68,11 @@
     <ClCompile Include="App\BEApp.cpp" />
     <ClCompile Include="App\Platforms\Win32\ApplicationContext.cpp" />
     <ClCompile Include="BECore\BERefCounter.cpp" />
-    <ClCompile Include="DXCore\BEGraphicsDevice.cpp" />
+    <ClCompile Include="Graphics\BEGraphicsDevice.cpp" />
+    <ClCompile Include="Graphics\Platforms\D3DX12\CommandList.cpp" />
+    <ClCompile Include="Graphics\Platforms\D3DX12\CommandQueue.cpp" />
+    <ClCompile Include="Graphics\Platforms\D3DX12\GraphicsDevice.cpp" />
+    <ClCompile Include="Graphics\Platforms\D3DX12\SwapChain.cpp" />
     <ClCompile Include="Window\BEWindow.cpp" />
     <ClCompile Include="Window\WindowPlatform\Win32\Window.cpp" />
   </ItemGroup>
