@@ -60,6 +60,11 @@
     <ClInclude Include="Graphics\Platforms\D3DX12\d3dx12Include.h" />
     <ClInclude Include="Graphics\Platforms\D3DX12\CommandQueue.h" />
     <ClInclude Include="Graphics\Platforms\D3DX12\SwapChain.h" />
+    <ClInclude Include="Graphics\BEGPUBuffer.h" />
+    <ClInclude Include="Graphics\BETexture.h" />
+    <ClInclude Include="Graphics\BEPixelFormat.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\GPUBuffer.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\Texture.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\BEVector2.inl">
@@ -104,5 +109,7 @@
     <ClCompile Include="Graphics\Platforms\D3DX12\CommandList.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\CommandQueue.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\SwapChain.cpp" />
+    <ClCompile Include="Graphics\Platforms\D3DX12\GPUBuffer.cpp" />
+    <ClCompile Include="Graphics\Platforms\D3DX12\Texture.cpp" />
   </ItemGroup>
 </Project>

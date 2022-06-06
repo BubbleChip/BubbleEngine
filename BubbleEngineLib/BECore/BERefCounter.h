@@ -1,5 +1,7 @@
 #pragma once
 #include <stdint.h>
+#include <atomic>
+#include "BEInclude.h"
 
 class BERefCounter
 {
@@ -15,6 +17,6 @@ public:
 
 
 private:
-	uint32_t refCount = 0;
+	struct BEL_API std::atomic<unsigned int> refCount = 0;
 };
 

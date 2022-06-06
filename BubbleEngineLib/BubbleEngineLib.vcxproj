@@ -25,6 +25,10 @@
     <ClInclude Include="App\Platforms\Win32\ApplicationContext.h" />
     <ClInclude Include="BECore\BEInclude.h" />
     <ClInclude Include="BECore\BERefCounter.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\GPUBuffer.h" />
+    <ClInclude Include="Graphics\BEGPUBuffer.h" />
+    <ClInclude Include="Graphics\BETexture.h" />
+    <ClInclude Include="Graphics\BEPixelFormat.h" />
     <ClInclude Include="Graphics\Platforms\D3DX12\CommandList.h" />
     <ClInclude Include="Graphics\Platforms\D3DX12\CommandQueue.h" />
     <ClInclude Include="Graphics\Platforms\D3DX12\d3dx12.h" />
@@ -48,6 +52,7 @@
     <ClInclude Include="Math\BEVector2.h" />
     <ClInclude Include="Math\BEVector3.h" />
     <ClInclude Include="Math\BEVector4.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\Texture.h" />
     <ClInclude Include="Window\BEWindow.h" />
     <ClInclude Include="Window\WindowPlatform\Win32\Window.h" />
     <ClInclude Include="Window\WindowPlatform\WindowPlatform.h" />
@@ -68,11 +73,13 @@
     <ClCompile Include="App\BEApp.cpp" />
     <ClCompile Include="App\Platforms\Win32\ApplicationContext.cpp" />
     <ClCompile Include="BECore\BERefCounter.cpp" />
+    <ClCompile Include="Graphics\Platforms\D3DX12\GPUBuffer.cpp" />
     <ClCompile Include="Graphics\BEGraphicsDevice.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\CommandList.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\CommandQueue.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\GraphicsDevice.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\SwapChain.cpp" />
+    <ClCompile Include="Graphics\Platforms\D3DX12\Texture.cpp" />
     <ClCompile Include="Window\BEWindow.cpp" />
     <ClCompile Include="Window\WindowPlatform\Win32\Window.cpp" />
   </ItemGroup>
@@ -155,7 +162,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
-      <AdditionalIncludeDirectories>C:\Work\BubbleEngine\BubbleEngineLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\BubbleEngineLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -172,7 +179,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
-      <AdditionalIncludeDirectories>C:\Work\BubbleEngine\BubbleEngineLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\BubbleEngineLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -189,7 +196,7 @@
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
-      <AdditionalIncludeDirectories>C:\Work\BubbleEngine\BubbleEngineLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\BubbleEngineLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -206,7 +213,7 @@
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
-      <AdditionalIncludeDirectories>C:\Work\BubbleEngine\BubbleEngineLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\BubbleEngineLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
