@@ -13,14 +13,19 @@ public:
 	uint32_t Height() const { return height; }
 	BEPixelFormat Format() const { return format; }
 
-	ID3D12Resource* Buffer() const { return buffer.Get(); }
+	ID3D12Resource* Resource() const { return resource.Get(); }
 	D3D12_RESOURCE_STATES InitialState() const { return initialState; }
+
+	void SetRenderTargetViewHeap(ID3D12DescriptorHeap* heap);
+	D3D12_CPU_DESCRIPTOR_HANDLE RenderTargetView() const;
 
 private:
 	uint32_t width;
 	uint32_t height;
 	BEPixelFormat format;
-
-	ComPtr<ID3D12Resource> buffer;
 	D3D12_RESOURCE_STATES initialState;
+
+	ComPtr<ID3D12Resource> resource;
+	ComPtr<ID3D12DescriptorHeap> renderTargetViewHeap;
+
 };

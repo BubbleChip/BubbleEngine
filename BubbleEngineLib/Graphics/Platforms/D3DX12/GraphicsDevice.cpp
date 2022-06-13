@@ -1,6 +1,9 @@
 #include "GraphicsDevice.h"
-#include "CommandList.h"
+#include "CommandBuffer.h"
 #include "CommandQueue.h"
+#include "GPUBuffer.h"
+#include "Texture.h"
+#include "PixelFormat.h"
 
 namespace BEL
 {
@@ -148,16 +151,155 @@ BEObject<BECommandQueue> GraphicsDevice::CreateCommandQueue()
         desc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
         ThrowIfFailed(device->CreateCommandQueue(&desc, IID_PPV_ARGS(&queue)));
     }
-    return new CommandQueue(this, queue.Get());
-}
 
-BEObject<BECommandList> GraphicsDevice::CreateCommandList()
-{
+    ComPtr<ID3D12Fence> fence;
+    {
+        ThrowIfFailed(device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fence)));
+    }
+
     ComPtr<ID3D12CommandAllocator> commandAllocator;
     ThrowIfFailed(device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&commandAllocator)));
 
     ComPtr<ID3D12GraphicsCommandList> commandList;
     ThrowIfFailed(device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, commandAllocator.Get(), nullptr, IID_PPV_ARGS(&commandList)));
+    commandList->Close();
 
-    return new CommandList(commandAllocator.Get(), commandList.Get(), D3D12_COMMAND_LIST_TYPE_DIRECT);
+    return new CommandQueue(this, queue.Get(), commandAllocator.Get(), commandList.Get(), fence.Get());
+}
+
+BEObject<BEGPUBuffer> GraphicsDevice::CreateGPUBuffer(size_t size, BEGPUBuffer::CPUCacheMode mode)
+{
+    D3D12_HEAP_PROPERTIES heapProperty{};
+    D3D12_RESOURCE_STATES initialResourceState{};
+    switch (mode)
+    {
+    case GPUBuffer::CPUCacheMode::None:
+        heapProperty = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+        initialResourceState = D3D12_RESOURCE_STATE_GENERIC_READ;
+        break;
+    case GPUBuffer::CPUCacheMode::WriteCombined:
+        heapProperty = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+        initialResourceState = D3D12_RESOURCE_STATE_GENERIC_READ;
+        break;
+    case GPUBuffer::CPUCacheMode::ReadCombined:
+        heapProperty = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_READBACK);
+        initialResourceState = D3D12_RESOURCE_STATE_COPY_DEST;
+        break;
+    }
+
+    D3D12_RESOURCE_DESC bufferDesc;
+    bufferDesc.Dimension = D3D12_RESOURCE_DIMENSION_BUFFER;
+    bufferDesc.Alignment = 0;
+    bufferDesc.Width = AlignGPUBufferSize(size);
+    bufferDesc.Height = 1;
+    bufferDesc.DepthOrArraySize = 1;
+    bufferDesc.MipLevels = 1;
+    bufferDesc.Format = DXGI_FORMAT_UNKNOWN;
+    bufferDesc.SampleDesc.Count = 1;
+    bufferDesc.SampleDesc.Quality = 0;
+    bufferDesc.Layout = D3D12_TEXTURE_LAYOUT_ROW_MAJOR;
+    bufferDesc.Flags = D3D12_RESOURCE_FLAG_NONE;
+
+    ComPtr<ID3D12Resource> buffer;
+    ThrowIfFailed(device->CreateCommittedResource(
+        &heapProperty,
+        D3D12_HEAP_FLAG_NONE,
+        &bufferDesc,
+        initialResourceState,
+        nullptr,
+        IID_PPV_ARGS(buffer.GetAddressOf())));
+
+    return new GPUBuffer(buffer.Get(), mode, initialResourceState);
+}
+
+BEObject<BETexture> GraphicsDevice::CreateTexture(const BETextureDescriptor& desc)
+{
+    D3D12_RESOURCE_DESC bufferDesc{};
+    bufferDesc.Width = desc.width;
+    bufferDesc.Height = desc.height;
+    bufferDesc.DepthOrArraySize = desc.depth;
+    bufferDesc.MipLevels = desc.mipmapLevelCount;
+    bufferDesc.SampleDesc.Count = desc.sampleCount;
+    bufferDesc.SampleDesc.Quality = 0;
+    bufferDesc.Format = PixelFormat(desc.format);
+
+    switch (desc.type)
+    {
+    case Texture::Type1D: bufferDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE1D; break;
+    case Texture::Type2D: bufferDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D; break;
+    case Texture::Type3D: bufferDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE3D; break;
+    }
+
+    D3D12_RESOURCE_STATES initialState = D3D12_RESOURCE_STATE_COMMON;
+
+    // default - allow bind shader.
+    bufferDesc.Flags = D3D12_RESOURCE_FLAG_NONE;
+    if (desc.usage & Texture::UsageShaderRead)
+    {
+        initialState = D3D12_RESOURCE_STATE_NON_PIXEL_SHADER_RESOURCE | D3D12_RESOURCE_STATE_PIXEL_SHADER_RESOURCE;
+    }
+    else
+    {
+        // for optimize.
+        bufferDesc.Flags |= D3D12_RESOURCE_FLAG_DENY_SHADER_RESOURCE;
+    }
+    if (desc.usage & Texture::UsageRenderTarget)
+    {
+        bufferDesc.Flags |= D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;
+        initialState = D3D12_RESOURCE_STATE_RENDER_TARGET;
+    }
+    if (desc.usage & Texture::UsageDepthStencil)
+    {
+        bufferDesc.Flags |= D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL;
+        initialState = D3D12_RESOURCE_STATE_DEPTH_WRITE;
+    }
+
+    ComPtr<ID3D12Resource> buffer;
+    {
+        CD3DX12_HEAP_PROPERTIES heapProperty(D3D12_HEAP_TYPE_DEFAULT);
+        ThrowIfFailed(device->CreateCommittedResource(
+            &heapProperty,
+            D3D12_HEAP_FLAG_NONE,
+            &bufferDesc,
+            initialState,
+            nullptr,
+            IID_PPV_ARGS(buffer.GetAddressOf())));
+    }
+
+    BEObject<Texture> newTexture = new Texture(buffer.Get(), initialState);
+
+    // Render Target View.
+    if (desc.usage & Texture::UsageRenderTarget)
+    {
+        D3D12_DESCRIPTOR_HEAP_DESC heapDesc{};
+        heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
+        heapDesc.NumDescriptors = 1;
+
+        ComPtr<ID3D12DescriptorHeap> descriptorHeap;
+        ThrowIfFailed(device->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(descriptorHeap.GetAddressOf())));
+
+        D3D12_RENDER_TARGET_VIEW_DESC rtvDesc{};
+        rtvDesc.Format = bufferDesc.Format;
+        switch (bufferDesc.Dimension)
+        {
+        case D3D12_RESOURCE_DIMENSION_TEXTURE1D:
+            rtvDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE1D;
+            break;
+        case D3D12_RESOURCE_DIMENSION_TEXTURE2D:
+            rtvDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;
+            break;
+        case D3D12_RESOURCE_DIMENSION_TEXTURE3D:
+            rtvDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE3D;
+            break;
+        }
+
+        device->CreateRenderTargetView(buffer.Get(), &rtvDesc, descriptorHeap->GetCPUDescriptorHandleForHeapStart());
+        newTexture->SetRenderTargetViewHeap(descriptorHeap.Get());
+    }
+
+    // TODO :: Depth Stencil View.
+
+    // TODO :: Shader Resource View
+
+    return newTexture.Ptr();
 }

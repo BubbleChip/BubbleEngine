@@ -1,6 +1,8 @@
 #pragma once
 
 #include <assert.h>
+#include <stdint.h>
+#include <math.h>
 
 #ifdef BEL_DYNAMIC
 #   ifdef DLL_EXPORTS

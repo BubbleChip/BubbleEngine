@@ -25,14 +25,19 @@
     <ClInclude Include="App\Platforms\Win32\ApplicationContext.h" />
     <ClInclude Include="BECore\BEInclude.h" />
     <ClInclude Include="BECore\BERefCounter.h" />
+    <ClInclude Include="Graphics\BEColor32.h" />
+    <ClInclude Include="Graphics\BELinearColor.h" />
+    <ClInclude Include="Math\BERect.h" />
+    <ClInclude Include="Graphics\BERenderCommandEncoder.h" />
+    <ClInclude Include="Graphics\BEViewport.h" />
     <ClInclude Include="Graphics\Platforms\D3DX12\GPUBuffer.h" />
     <ClInclude Include="Graphics\BEGPUBuffer.h" />
     <ClInclude Include="Graphics\BETexture.h" />
     <ClInclude Include="Graphics\BEPixelFormat.h" />
-    <ClInclude Include="Graphics\Platforms\D3DX12\CommandList.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\CommandBuffer.h" />
     <ClInclude Include="Graphics\Platforms\D3DX12\CommandQueue.h" />
     <ClInclude Include="Graphics\Platforms\D3DX12\d3dx12.h" />
-    <ClInclude Include="Graphics\BECommandList.h" />
+    <ClInclude Include="Graphics\BECommandBuffer.h" />
     <ClInclude Include="Graphics\BECommandQueue.h" />
     <ClInclude Include="Graphics\BEGraphicsDevice.h" />
     <ClInclude Include="BECore\BEObject.h" />
@@ -53,6 +58,8 @@
     <ClInclude Include="Math\BEVector3.h" />
     <ClInclude Include="Math\BEVector4.h" />
     <ClInclude Include="Graphics\Platforms\D3DX12\Texture.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\RenderCommandEncoder.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\PixelFormat.h" />
     <ClInclude Include="Window\BEWindow.h" />
     <ClInclude Include="Window\WindowPlatform\Win32\Window.h" />
     <ClInclude Include="Window\WindowPlatform\WindowPlatform.h" />
@@ -75,11 +82,12 @@
     <ClCompile Include="BECore\BERefCounter.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\GPUBuffer.cpp" />
     <ClCompile Include="Graphics\BEGraphicsDevice.cpp" />
-    <ClCompile Include="Graphics\Platforms\D3DX12\CommandList.cpp" />
+    <ClCompile Include="Graphics\Platforms\D3DX12\CommandBuffer.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\CommandQueue.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\GraphicsDevice.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\SwapChain.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\Texture.cpp" />
+    <ClCompile Include="Graphics\Platforms\D3DX12\RenderCommandEncoder.cpp" />
     <ClCompile Include="Window\BEWindow.cpp" />
     <ClCompile Include="Window\WindowPlatform\Win32\Window.cpp" />
   </ItemGroup>
@@ -163,6 +171,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <AdditionalIncludeDirectories>..\BubbleEngineLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -180,6 +189,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <AdditionalIncludeDirectories>..\BubbleEngineLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -197,6 +207,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <AdditionalIncludeDirectories>..\BubbleEngineLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -214,6 +225,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
       <AdditionalIncludeDirectories>..\BubbleEngineLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
