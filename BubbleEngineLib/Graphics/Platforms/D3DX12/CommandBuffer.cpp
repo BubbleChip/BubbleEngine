@@ -25,3 +25,8 @@ void CommandBuffer::Reset()
 {
 	ThrowIfFailed(allocator->Reset());
 }
+
+void CommandBuffer::AddEncodedCommandList(ID3D12GraphicsCommandList* commandList)
+{
+	// not yet.
+}

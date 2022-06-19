@@ -20,8 +20,27 @@ void Texture::SetRenderTargetViewHeap(ID3D12DescriptorHeap* heap)
 	renderTargetViewHeap = heap;
 }
 
+void Texture::SetDepthStencilViewHeap(ID3D12DescriptorHeap* heap)
+{
+	depthStencilViewHeap = heap;
+}
+
+void Texture::SetShaderResourceViewHeap(ID3D12DescriptorHeap* heap)
+{
+	shaderResourceViewHeap = heap;
+}
+
 D3D12_CPU_DESCRIPTOR_HANDLE Texture::RenderTargetView() const
 {
-	BEASSERT(renderTargetViewHeap);
 	return renderTargetViewHeap->GetCPUDescriptorHandleForHeapStart();
+}
+
+D3D12_CPU_DESCRIPTOR_HANDLE Texture::DepthStencilView() const
+{
+	return depthStencilViewHeap->GetCPUDescriptorHandleForHeapStart();
+}
+
+D3D12_CPU_DESCRIPTOR_HANDLE Texture::ShaderResourceView() const
+{
+	return shaderResourceViewHeap->GetCPUDescriptorHandleForHeapStart();
 }

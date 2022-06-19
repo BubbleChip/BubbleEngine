@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\test\gtest\gmock-gtest-all.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\test\gtest\gmock\gmock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\test\gtest\gtest\gtest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\test\gtest\gtest\gtest-spi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\test\gtest\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{673BA727-6CF4-3AE7-9BAC-242E2EC9C94D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{B31F5EAE-CB9A-352E-B10C-CD8C570130ED}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

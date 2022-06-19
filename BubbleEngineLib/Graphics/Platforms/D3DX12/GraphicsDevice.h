@@ -11,8 +11,8 @@ public:
 	~GraphicsDevice() = default;
 
 	BEObject<BECommandQueue> CreateCommandQueue() override;
-	BEObject<BEGPUBuffer> CreateGPUBuffer(size_t, BEGPUBuffer::CPUCacheMode) override;
-	BEObject<BETexture> CreateTexture(const BETextureDescriptor&) override;
+	BEObject<BEGPUBuffer> CreateGPUBuffer(size_t size, BEGPUBuffer::CPUCacheMode mode) override;
+	BEObject<BETexture> CreateTexture(const BETextureDescriptor& desc) override;
 
 	ID3D12Device* Device() const { return device.Get(); }
 	ComPtr<IDXGIFactory6> Factory() const { return factory; }

@@ -26,7 +26,9 @@
     <ClInclude Include="BECore\BEInclude.h" />
     <ClInclude Include="BECore\BERefCounter.h" />
     <ClInclude Include="Graphics\BEColor32.h" />
+    <ClInclude Include="Graphics\BEGraphics.h" />
     <ClInclude Include="Graphics\BELinearColor.h" />
+    <ClInclude Include="BubbleEngineLibrary.h" />
     <ClInclude Include="Math\BERect.h" />
     <ClInclude Include="Graphics\BERenderCommandEncoder.h" />
     <ClInclude Include="Graphics\BEViewport.h" />
@@ -80,6 +82,8 @@
     <ClCompile Include="App\BEApp.cpp" />
     <ClCompile Include="App\Platforms\Win32\ApplicationContext.cpp" />
     <ClCompile Include="BECore\BERefCounter.cpp" />
+    <ClCompile Include="Graphics\BEColor32.cpp" />
+    <ClCompile Include="Graphics\BELinearColor.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\GPUBuffer.cpp" />
     <ClCompile Include="Graphics\BEGraphicsDevice.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\CommandBuffer.cpp" />
@@ -88,6 +92,9 @@
     <ClCompile Include="Graphics\Platforms\D3DX12\SwapChain.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\Texture.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\RenderCommandEncoder.cpp" />
+    <ClCompile Include="Math\BERect.cpp">
+      <FileType>Document</FileType>
+    </ClCompile>
     <ClCompile Include="Window\BEWindow.cpp" />
     <ClCompile Include="Window\WindowPlatform\Win32\Window.cpp" />
   </ItemGroup>

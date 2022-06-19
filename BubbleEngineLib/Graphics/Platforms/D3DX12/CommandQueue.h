@@ -12,6 +12,8 @@ public:
     BEObject<BESwapChain> CreateSwapChain(const BEWindow* _window) override;
     BEObject<BECommandBuffer> CreateCommandBuffer() override;
 
+    void WaitComplete() override;
+
     ID3D12CommandQueue* Queue() const { return queue.Get(); }
     uint64_t ExecuteCommandLists(uint32_t numCommandLists, ID3D12CommandList* const* commandLists);
 

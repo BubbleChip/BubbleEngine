@@ -16,8 +16,11 @@ public:
     void Commit() override;
 
     void Reset();
+    void AddEncodedCommandList(ID3D12GraphicsCommandList* commandList);
 
 private:
+    std::vector<ComPtr<ID3D12GraphicsCommandList>> encodedCommandList;
+
     D3D12_COMMAND_LIST_TYPE type;
     BEObject<CommandQueue> commandQueue;
     ComPtr<ID3D12GraphicsCommandList> list;

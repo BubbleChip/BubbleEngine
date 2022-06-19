@@ -72,6 +72,8 @@
     <ClInclude Include="Graphics\BEColor32.h" />
     <ClInclude Include="Graphics\Platforms\D3DX12\RenderCommandEncoder.h" />
     <ClInclude Include="Graphics\Platforms\D3DX12\PixelFormat.h" />
+    <ClInclude Include="Graphics\BEGraphics.h" />
+    <ClInclude Include="BubbleEngineLibrary.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\BEVector2.inl">
@@ -119,5 +121,8 @@
     <ClCompile Include="Graphics\Platforms\D3DX12\GPUBuffer.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\Texture.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\RenderCommandEncoder.cpp" />
+    <ClCompile Include="Graphics\BEColor32.cpp" />
+    <ClCompile Include="Graphics\BELinearColor.cpp" />
+    <ClCompile Include="Math\BERect.cpp" />
   </ItemGroup>
 </Project>

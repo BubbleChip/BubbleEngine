@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\src\format.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\src\os.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\include\fmt\args.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\include\fmt\chrono.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\include\fmt\color.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\include\fmt\compile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\include\fmt\core.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\include\fmt\format.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\include\fmt\format-inl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\include\fmt\os.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\include\fmt\ostream.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\include\fmt\printf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\include\fmt\ranges.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\include\fmt\std.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\include\fmt\xchar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\README.rst" />
+    <None Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\ChangeLog.rst" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{673BA727-6CF4-3AE7-9BAC-242E2EC9C94D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{B31F5EAE-CB9A-352E-B10C-CD8C570130ED}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

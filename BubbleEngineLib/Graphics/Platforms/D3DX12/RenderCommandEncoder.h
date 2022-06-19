@@ -17,6 +17,7 @@ public:
 	void SetRenderTargets(std::vector<const BETexture*> renderTargets, const BETexture* depthStencil) override;
 
 	void ClearRenderTargetView(const BETexture* renderTarget, const BELinearColor& clearColor) override;
+	void ClearDepthStencilView(const BETexture* depthStencil, DepthStencilClearFlag clearFlag, float clearDepth, uint8_t clearStencil) override;
 
 	void EndEncoding() override;
 

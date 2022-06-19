@@ -65,30 +65,26 @@ void RenderCommandEncoder::SetRenderTargets(std::vector<const BETexture*> render
 	for (const BETexture* renderTarget : renderTargets)
 	{
 		const Texture* rt = dynamic_cast<const Texture*>(renderTarget);
-		BEASSERT_DEBUG(rt);
 
 		renderTargetHandles.push_back(rt->RenderTargetView());
 		TransitionBufferState(rt->Resource(), rt->InitialState(), D3D12_RESOURCE_STATE_RENDER_TARGET);
 	}
 
-	BEASSERT_DEBUG(renderTargetHandles.size() > 0);
-
-	//if (const Texture* ds = dynamic_cast<const Texture*>(depthStencil))
-	//{
-	//	D3D12_CPU_DESCRIPTOR_HANDLE dsView = ds->DepthStencilView();
-	//	commandList->OMSetRenderTargets(static_cast<UINT>(renderTargetHandles.size()), renderTargetHandles.data(),
-	//		true, &dsView);
-	//}
-	//else
-	//{
+	if (const Texture* ds = dynamic_cast<const Texture*>(depthStencil))
+	{
+		D3D12_CPU_DESCRIPTOR_HANDLE dsView = ds->DepthStencilView();
+		commandList->OMSetRenderTargets(static_cast<UINT>(renderTargetHandles.size()), renderTargetHandles.data(),
+			true, &dsView);
+	}
+	else
+	{
 		commandList->OMSetRenderTargets(static_cast<UINT>(renderTargetHandles.size()), renderTargetHandles.data(),
 			false, nullptr);
-	//}
+	}
 
 	for (const BETexture* renderTarget : renderTargets)
 	{
 		const Texture* rt = dynamic_cast<const Texture*>(renderTarget);
-		BEASSERT_DEBUG(rt);
 
 		TransitionBufferState(rt->Resource(), D3D12_RESOURCE_STATE_RENDER_TARGET, rt->InitialState());
 	}
@@ -104,9 +100,28 @@ void RenderCommandEncoder::ClearRenderTargetView(const BETexture* renderTarget, 
 	TransitionBufferState(rt->Resource(), D3D12_RESOURCE_STATE_RENDER_TARGET, rt->InitialState());
 }
 
+void RenderCommandEncoder::ClearDepthStencilView(const BETexture* depthStencil, DepthStencilClearFlag clearFlag, float clearDepth, uint8_t clearStencil)
+{
+	D3D12_CLEAR_FLAGS flag = D3D12_CLEAR_FLAG_DEPTH | D3D12_CLEAR_FLAG_STENCIL;
+	switch (clearFlag)
+	{
+	case DepthStencilClearFlag::Depth:
+		flag = D3D12_CLEAR_FLAG_DEPTH;
+		break;
+	case DepthStencilClearFlag::Stencil:
+		flag = D3D12_CLEAR_FLAG_STENCIL;
+		break;
+	}
+
+	const Texture* ds = dynamic_cast<const Texture*>(depthStencil);
+
+	commandList->ClearDepthStencilView(ds->DepthStencilView(), flag, clearDepth, clearStencil, 0, nullptr);
+}
+
 void RenderCommandEncoder::EndEncoding()
 {
 	commandList->Close();
+	commandBuffer->AddEncodedCommandList(commandList.Get());
 	commandList = nullptr;
 }
 

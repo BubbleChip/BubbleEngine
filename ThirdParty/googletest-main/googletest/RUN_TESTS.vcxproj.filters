@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Work\BubbleEngine\ThirdParty\googletest-main\CMakeFiles\fe38a7276ccbb8d41a3b79a85a03f903\RUN_TESTS_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{3A0D430D-D4D1-3261-8821-19F0513118DC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

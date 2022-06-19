@@ -3,6 +3,7 @@
 #include "d3dx12Include.h"
 #include "BECore/BEObject.h"
 #include "GraphicsDevice.h"
+#include "Texture.h"
 
 class BEWindow;
 class CommandQueue;
@@ -17,14 +18,21 @@ public:
 	uint32_t Height() override { return height; }
 
 	void Resize(uint32_t _width, uint32_t _height) override;
+	void Present() override;
+
+	const BETexture* CurrentColorTexture() const override;
+	const BETexture* DepthStencilTexture() const override;
 
 private:
+	void SetupColorTextures();
+	void SetupDepthStencil();
+
 	uint32_t width;
 	uint32_t height;
 
 	UINT currentColorTextureIndex;
-	mutable ComPtr<ID3D12Resource> colorTexture[FRAME_BUFFER_COUNT];
-	mutable ComPtr<ID3D12Resource> depthStencilTexture;
+	mutable BEObject<Texture> colorTexture[FRAME_BUFFER_COUNT];
+	mutable BEObject<Texture> depthStencilTexture;
 
 	ComPtr<IDXGISwapChain3> swapChain;
 

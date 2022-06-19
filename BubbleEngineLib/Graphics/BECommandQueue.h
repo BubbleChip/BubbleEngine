@@ -14,4 +14,6 @@ public:
 
 	virtual BEObject<BESwapChain> CreateSwapChain(const BEWindow* _window) = 0;
 	virtual BEObject<BECommandBuffer> CreateCommandBuffer() = 0;
+
+	virtual void WaitComplete() = 0;
 };

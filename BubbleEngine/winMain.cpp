@@ -1,84 +1,100 @@
-#ifndef UNICODE
-#define UNICODE
-#endif 
+#include "gtest/gtest.h"
+#include "BubbleEngineLibrary.h"
+#include <thread>
 
-#include <windows.h>
-#include "Math/BEMathLib.h"
-#include "BECore/BERefCounter.h"
-#include "BECore/BEInclude.h"
-
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-
-int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR pCmdLine, int nCmdShow)
+class TestApplication : public BEApp
 {
-    // Register the window class.
-    const wchar_t CLASS_NAME[] = L"BubbleEngineClass";
+public:
+	TestApplication()
+		: window(nullptr)
+		, graphicsDevice(nullptr)
+	{}
 
-    WNDCLASS wc = { };
+	void OnInitialize() override
+	{
+		window = BEWindow::CreatePlatformWindow();
+		window->Create();
+		window->Show();
 
-    wc.lpfnWndProc = WindowProc;
-    wc.hInstance = hInstance;
-    wc.lpszClassName = CLASS_NAME;
+		graphicsDevice = BEGraphicsDevice::CreateGraphicsDevice();
+		commandQueue = graphicsDevice->CreateCommandQueue();
+		swapChain = commandQueue->CreateSwapChain(window);
 
-    RegisterClass(&wc);
+		vertexBuffer = graphicsDevice->CreateGPUBuffer(50000, BEGPUBuffer::CPUCacheMode::WriteCombined);
 
-    // Create the window.
+		BETextureDescriptor whiteTextureDesc;
+		whiteTextureDesc.type = BETexture::Type2D;
+		whiteTextureDesc.format = BEPixelFormat::RGBA8Unorm;
+		whiteTextureDesc.width = 4; // texture minimum size.
+		whiteTextureDesc.height = 4; // texture minimum size.
+		whiteTextureDesc.depth = 1;
+		whiteTextureDesc.mipmapLevelCount = 1;
+		whiteTextureDesc.sampleCount = 1;
+		whiteTextureDesc.usage = BETexture::UsageShaderRead;
+		whiteTexture = graphicsDevice->CreateTexture(whiteTextureDesc);
 
-    HWND hwnd = CreateWindowEx(
-        0,                              // Optional window styles.
-        CLASS_NAME,                     // Window class
-        L"BubbleEngine",                // Window text
-        WS_OVERLAPPEDWINDOW,            // Window style
+		loopThread = std::jthread([this](std::stop_token token)
+			{
+				while (!token.stop_requested())
+				{
+					Update();
+					Draw();
+				}
+			});
+	}
 
-        // Size and position
-        CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+	void OnTerminate() override
+	{
+		loopThread.request_stop();
+		loopThread.join();
+	}
 
-        NULL,       // Parent window    
-        NULL,       // Menu
-        hInstance,  // Instance handle
-        NULL        // Additional application data
-    );
+	void Update()
+	{
 
-    if (hwnd == NULL)
-    {
-        return 0;
-    }
+	}
 
-    ShowWindow(hwnd, nCmdShow);
+	void Draw()
+	{
+		if (BEObject<BECommandBuffer> commandBuffer = commandQueue->CreateCommandBuffer())
+		{
+			if (BEObject<BERenderCommandEncoder> encoder = commandBuffer->CreateRenderCommandEncoder())
+			{
+				BEViewport viewport(0, 0, (float)window->Width(), (float)window->Height(), 0.f, 1.f);
+				encoder->SetViewport(viewport);
 
-    // Run the message loop.
+				BERect scissorRect(0, 0, (float)window->Width(), (float)window->Height());
+				encoder->SetScissorRect(scissorRect);
 
-    MSG msg = { };
-    while (GetMessage(&msg, NULL, 0, 0) > 0)
-    {
-        TranslateMessage(&msg);
-        DispatchMessage(&msg);
-    }
+				encoder->ClearRenderTargetView(swapChain->CurrentColorTexture(), BELinearColor::green);
+				encoder->ClearDepthStencilView(swapChain->DepthStencilTexture(), BERenderCommandEncoder::DepthStencilClearFlag::All, 1.f, 0);
 
-    return 0;
-}
+				encoder->SetRenderTargets({ swapChain->CurrentColorTexture() }, swapChain->DepthStencilTexture());
 
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+				encoder->EndEncoding();
+			}
+
+			commandBuffer->Commit();
+		}
+
+		swapChain->Present();
+		commandQueue->WaitComplete();
+	}
+
+private:
+	std::jthread loopThread;
+
+	BEObject<BEWindow> window;
+	BEObject<BEGraphicsDevice> graphicsDevice;
+	BEObject<BECommandQueue> commandQueue;
+	BEObject<BESwapChain> swapChain;
+
+	BEObject<BEGPUBuffer> vertexBuffer;
+	BEObject<BETexture> whiteTexture;
+};
+
+TEST(Application, Init)
 {
-    switch (uMsg)
-    {
-    case WM_DESTROY:
-        PostQuitMessage(0);
-        return 0;
-
-    case WM_PAINT:
-    {
-        PAINTSTRUCT ps;
-        HDC hdc = BeginPaint(hwnd, &ps);
-
-        // All painting occurs here, between BeginPaint and EndPaint.
-
-        FillRect(hdc, &ps.rcPaint, (HBRUSH)(COLOR_WINDOW + 1));
-
-        EndPaint(hwnd, &ps);
-    }
-    return 0;
-
-    }
-    return DefWindowProc(hwnd, uMsg, wParam, lParam);
+	TestApplication app;
+	app.Run();
 }

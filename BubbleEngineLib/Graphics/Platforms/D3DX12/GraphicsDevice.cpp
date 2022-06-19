@@ -297,9 +297,66 @@ BEObject<BETexture> GraphicsDevice::CreateTexture(const BETextureDescriptor& des
         newTexture->SetRenderTargetViewHeap(descriptorHeap.Get());
     }
 
-    // TODO :: Depth Stencil View.
+    // Depth Stencil View.
+    if (desc.usage & Texture::UsageDepthStencil)
+    {
+        D3D12_DESCRIPTOR_HEAP_DESC heapDesc{};
+        heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
+        heapDesc.NumDescriptors = 1;
 
-    // TODO :: Shader Resource View
+        ComPtr<ID3D12DescriptorHeap> descriptorHeap;
+        ThrowIfFailed(device->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(descriptorHeap.GetAddressOf())));
+
+        D3D12_DEPTH_STENCIL_VIEW_DESC dsvDesc{};
+        dsvDesc.Format = bufferDesc.Format;
+        switch (desc.type)
+        {
+        case Texture::Type1D:
+            dsvDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE1D;
+            break;
+        case Texture::Type2D:
+            dsvDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
+            break;
+        case Texture::Type3D:
+            BEASSERT_DESC_DEBUG(false, "DepthStencil is a format that is not available.");
+            break;
+        }
+
+        device->CreateDepthStencilView(buffer.Get(), &dsvDesc, descriptorHeap->GetCPUDescriptorHandleForHeapStart());
+        newTexture->SetDepthStencilViewHeap(descriptorHeap.Get());
+    }
+
+    // Shader Resource View
+    if (desc.usage & Texture::UsageShaderRead)
+    {
+        D3D12_DESCRIPTOR_HEAP_DESC heapDesc{};
+        heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+        heapDesc.NumDescriptors = 1;
+
+        ComPtr<ID3D12DescriptorHeap> descriptorHeap;
+        ThrowIfFailed(device->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(descriptorHeap.GetAddressOf())));
+
+        D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};
+        srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+        srvDesc.Format = bufferDesc.Format;
+        switch (desc.type)
+        {
+        case Texture::Type1D:
+            srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE1D;
+            srvDesc.Texture1D.MipLevels = bufferDesc.MipLevels;
+            break;
+        case Texture::Type2D:
+            srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+            srvDesc.Texture2D.MipLevels = bufferDesc.MipLevels;
+            break;
+        case Texture::Type3D:
+            srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE3D;
+            srvDesc.Texture3D.MipLevels = bufferDesc.MipLevels;
+            break;
+        }
+        device->CreateShaderResourceView(buffer.Get(), &srvDesc, descriptorHeap->GetCPUDescriptorHandleForHeapStart());
+        newTexture->SetShaderResourceViewHeap(descriptorHeap.Get());
+    }
 
     return newTexture.Ptr();
 }

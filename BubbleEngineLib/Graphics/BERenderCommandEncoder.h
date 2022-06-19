@@ -27,6 +27,7 @@ public:
 
     virtual void SetRenderTargets(std::vector<const BETexture*> renderTargets, const BETexture* depthStencil) = 0;
     virtual void ClearRenderTargetView(const BETexture* renderTarget, const BELinearColor& clearColor) = 0;
+    virtual void ClearDepthStencilView(const BETexture* depthStencil, DepthStencilClearFlag clearFlag, float clearDepth, uint8_t clearStencil) = 0;
 
     virtual void EndEncoding() = 0;
 };
