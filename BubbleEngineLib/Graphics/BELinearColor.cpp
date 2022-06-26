@@ -1,5 +1,7 @@
 #include "BELinearColor.h"
 
+const BELinearColor BELinearColor::white = BELinearColor(1.0f,1.0f,1.0f,1.0f);
+
 BELinearColor::BELinearColor()
     : r(0.f), g(0.f), b(0.f), a(1.f)
 {}

@@ -1,0 +1,5 @@
+﻿  Building Custom Rule C:/Work/BubbleEngine/ThirdParty/fmt-master/CMakeLists.txt
+  format.cc
+  os.cc
+  Generating Code...
+  fmt.vcxproj -> C:\Work\BubbleEngine\ThirdParty\fmt-master\cBuild\Debug\fmtd.lib
