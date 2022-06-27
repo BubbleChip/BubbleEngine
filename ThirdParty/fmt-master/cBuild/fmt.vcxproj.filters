@@ -50,13 +50,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\CMakeLists.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\README.rst" />
-    <None Include="C:\Work\BubbleEngine\ThirdParty\fmt-master\ChangeLog.rst" />
-  </ItemGroup>
-  <ItemGroup>
     <Filter Include="Header Files">
       <UniqueIdentifier>{AAAA5DE2-19EF-354D-9B93-5E8348E7A12A}</UniqueIdentifier>
     </Filter>

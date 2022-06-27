@@ -66,7 +66,7 @@ public:
 				BERect scissorRect(0, 0, (float)window->Width(), (float)window->Height());
 				encoder->SetScissorRect(scissorRect);
 
-				encoder->ClearRenderTargetView(swapChain->CurrentColorTexture(), BELinearColor::white);
+				encoder->ClearRenderTargetView(swapChain->CurrentColorTexture(), BELinearColor(0.0f, 0.0f, 1.0f, 1.0f));
 				encoder->ClearDepthStencilView(swapChain->DepthStencilTexture(), BERenderCommandEncoder::DepthStencilClearFlag::All, 1.f, 0);
 
 				encoder->SetRenderTargets({ swapChain->CurrentColorTexture() }, swapChain->DepthStencilTexture());

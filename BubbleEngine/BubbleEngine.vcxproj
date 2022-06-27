@@ -143,7 +143,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d12.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d12.lib;dxgi.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Work\BubbleEngine\ThirdParty\googletest-main\googletest\include\gtest;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -163,19 +164,23 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>d3d12.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d12.lib;dxgi.lib;dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Work\BubbleEngine\ThirdParty\googletest-main\googletest\include\gtest;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="winMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BubbleEngineLib\BubbleEngineLib.vcxproj">
       <Project>{b23131e8-ce6d-47eb-a3b5-cef9afe04a9e}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\ThirdParty\googletest-main\googletest\gtest_main.vcxproj">
-      <Project>{56793ad2-dd45-3607-8c0d-c6262bd267dd}</Project>
+    <ProjectReference Include="..\ThirdParty\googletest-main\googletest\cBuild\googletest\gtest.vcxproj">
+      <Project>{8571385f-e0f4-3319-a91f-4c9d49f5952f}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
