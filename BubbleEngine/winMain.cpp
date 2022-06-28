@@ -33,6 +33,26 @@ public:
 		whiteTextureDesc.usage = BETexture::UsageShaderRead;
 		whiteTexture = graphicsDevice->CreateTexture(whiteTextureDesc);
 
+		//Add Pipeline
+		vertexShader = graphicsDevice->CreateShader(L"Resource/SimpleShader.hlsl", "VS", BEShader::StageType::Vertex);
+		pixelShader = graphicsDevice->CreateShader(L"Resource/SimpleShader.hlsl", "PS", BEShader::StageType::Fragment);
+
+		BERenderPipelineDescriptor descriptor{};
+		descriptor.sampleCount = 1;
+		descriptor.vertexShader = vertexShader;
+		descriptor.fragmentShader = pixelShader;
+		descriptor.vertexDescriptor.attributes = {
+			{BEVertexFormat::Float3, "POSITION", 0, 0},
+			{BEVertexFormat::Float3, "NORMAL", 0, 12 },
+			{BEVertexFormat::Float4, "COLOR", 0, 24 },
+		};
+		descriptor.colorAttachments = { { BEPixelFormat::RGBA8Unorm, false } };
+		descriptor.depthStencilAttachmentPixelFormat = BEPixelFormat::Depth24UnormStencil8;
+		descriptor.inputPrimitiveTopology = BEPrimitiveTopologyType::Triangle;
+
+		renderPipeline = graphicsDevice->CreateRenderPipeline(descriptor);
+
+
 		loopThread = std::jthread([this](std::stop_token token)
 			{
 				while (!token.stop_requested())
@@ -58,7 +78,7 @@ public:
 	{
 		if (BEObject<BECommandBuffer> commandBuffer = commandQueue->CreateCommandBuffer())
 		{
-			if (BEObject<BERenderCommandEncoder> encoder = commandBuffer->CreateRenderCommandEncoder())
+			if (BEObject<BERenderCommandEncoder> encoder = commandBuffer->CreateRenderCommandEncoder(renderPipeline))
 			{
 				BEViewport viewport(0, 0, (float)window->Width(), (float)window->Height(), 0.f, 1.f);
 				encoder->SetViewport(viewport);
@@ -88,9 +108,13 @@ private:
 	BEObject<BEGraphicsDevice> graphicsDevice;
 	BEObject<BECommandQueue> commandQueue;
 	BEObject<BESwapChain> swapChain;
+	BEObject<BERenderPipeline> renderPipeline;
 
 	BEObject<BEGPUBuffer> vertexBuffer;
 	BEObject<BETexture> whiteTexture;
+
+	BEObject<BEShader> vertexShader;
+	BEObject<BEShader> pixelShader;
 };
 
 TEST(Application, Init)

@@ -12,6 +12,9 @@
     <Filter Include="Application">
       <UniqueIdentifier>{33244dbf-4a4a-47ef-9225-46279ad64635}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{3edd4f69-b633-43eb-add4-3ca25c0303f4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="winMain.cpp">

@@ -16,7 +16,7 @@ public:
 	{
 		ObjectAddRef();
 	}
-	BEObject(const BEObject&& _obj) noexcept
+	BEObject(BEObject&& _obj) noexcept
 		: refCounter(_obj.refCounter)
 	{
 		_obj.refCounter = nullptr;

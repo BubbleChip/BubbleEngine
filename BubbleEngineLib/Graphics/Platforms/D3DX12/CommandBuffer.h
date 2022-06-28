@@ -11,7 +11,7 @@ public:
     CommandBuffer(CommandQueue* _commandQueue, ID3D12CommandAllocator* _allocator, ID3D12GraphicsCommandList* _list, D3D12_COMMAND_LIST_TYPE _type);
     ~CommandBuffer() noexcept = default;
 
-    BEObject<BERenderCommandEncoder> CreateRenderCommandEncoder() override;
+    BEObject<BERenderCommandEncoder> CreateRenderCommandEncoder(BERenderPipeline* pipelineState) override;
 
     void Commit() override;
 

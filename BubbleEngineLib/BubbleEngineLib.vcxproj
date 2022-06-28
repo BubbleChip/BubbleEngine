@@ -23,6 +23,9 @@
     <ClInclude Include="App\ApplicationContext\BEAppContextInterface.h" />
     <ClInclude Include="App\Platforms\ApplicationPlatform.h" />
     <ClInclude Include="App\Platforms\Win32\ApplicationContext.h" />
+    <ClInclude Include="Graphics\BEBlendState.h" />
+    <ClInclude Include="Graphics\BEShader.h" />
+    <ClInclude Include="Graphics\BERenderPipeline.h" />
     <ClInclude Include="Graphics\BECopyCommandEncoder.h" />
     <ClInclude Include="BECore\BEInclude.h" />
     <ClInclude Include="BECore\BERefCounter.h" />
@@ -31,6 +34,7 @@
     <ClInclude Include="Graphics\BEGraphics.h" />
     <ClInclude Include="Graphics\BELinearColor.h" />
     <ClInclude Include="BubbleEngineLibrary.h" />
+    <ClInclude Include="Graphics\BEVertexDescriptor.h" />
     <ClInclude Include="Math\BERect.h" />
     <ClInclude Include="Graphics\BERenderCommandEncoder.h" />
     <ClInclude Include="Graphics\BEViewport.h" />
@@ -63,7 +67,9 @@
     <ClInclude Include="Math\BEVector4.h" />
     <ClInclude Include="Graphics\Platforms\D3DX12\Texture.h" />
     <ClInclude Include="Graphics\Platforms\D3DX12\RenderCommandEncoder.h" />
-    <ClInclude Include="Graphics\Platforms\D3DX12\PixelFormat.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\RenderPipeline.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\Shader.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\Types.h" />
     <ClInclude Include="Window\BEWindow.h" />
     <ClInclude Include="Window\WindowPlatform\Win32\Window.h" />
     <ClInclude Include="Window\WindowPlatform\WindowPlatform.h" />
@@ -98,6 +104,8 @@
     <ClCompile Include="Math\BERect.cpp">
       <FileType>Document</FileType>
     </ClCompile>
+    <ClCompile Include="Graphics\Platforms\D3DX12\RenderPipeline.cpp" />
+    <ClCompile Include="Graphics\Platforms\D3DX12\Shader.cpp" />
     <ClCompile Include="Window\BEWindow.cpp" />
     <ClCompile Include="Window\WindowPlatform\Win32\Window.cpp" />
   </ItemGroup>
@@ -227,7 +235,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>d3d12.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d12.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -250,7 +258,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>d3d12.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d12.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

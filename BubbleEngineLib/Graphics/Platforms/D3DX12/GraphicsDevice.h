@@ -14,6 +14,9 @@ public:
 	BEObject<BEGPUBuffer> CreateGPUBuffer(size_t size, BEGPUBuffer::CPUCacheMode mode) override;
 	BEObject<BETexture> CreateTexture(const BETextureDescriptor& desc) override;
 
+	BEObject<BERenderPipeline> CreateRenderPipeline(const BERenderPipelineDescriptor& descriptor) override;
+	BEObject<BEShader> CreateShader(const std::vector<uint8_t>& path, const std::string& entry, BEShader::StageType stage) override;
+
 	ID3D12Device* Device() const { return device.Get(); }
 	ComPtr<IDXGIFactory6> Factory() const { return factory; }
 

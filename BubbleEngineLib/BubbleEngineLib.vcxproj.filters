@@ -71,11 +71,17 @@
     <ClInclude Include="Graphics\BELinearColor.h" />
     <ClInclude Include="Graphics\BEColor32.h" />
     <ClInclude Include="Graphics\Platforms\D3DX12\RenderCommandEncoder.h" />
-    <ClInclude Include="Graphics\Platforms\D3DX12\PixelFormat.h" />
     <ClInclude Include="Graphics\BEGraphics.h" />
     <ClInclude Include="BubbleEngineLibrary.h" />
     <ClInclude Include="Graphics\BECopyCommandEncoder.h" />
     <ClInclude Include="Graphics\Platforms\D3DX12\CopyCommandEncoder.h" />
+    <ClInclude Include="Graphics\BERenderPipeline.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\RenderPipeline.h" />
+    <ClInclude Include="Graphics\BEBlendState.h" />
+    <ClInclude Include="Graphics\BEShader.h" />
+    <ClInclude Include="Graphics\BEVertexDescriptor.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\Shader.h" />
+    <ClInclude Include="Graphics\Platforms\D3DX12\Types.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\BEVector2.inl">
@@ -127,5 +133,7 @@
     <ClCompile Include="Graphics\BELinearColor.cpp" />
     <ClCompile Include="Math\BERect.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\CopyCommandEncoder.cpp" />
+    <ClCompile Include="Graphics\Platforms\D3DX12\RenderPipeline.cpp" />
+    <ClCompile Include="Graphics\Platforms\D3DX12\Shader.cpp" />
   </ItemGroup>
 </Project>
