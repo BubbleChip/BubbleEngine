@@ -1,4 +1,4 @@
-#include <math.h>
+#include <cmath>
 #include "BEVector3.h"
 #include "BEMatrix3.h"
 
@@ -85,4 +85,17 @@ inline BEVector3 BEVector3::Cross(const BEVector3& _rhs) const
 		z * _rhs.x - x * _rhs.z,
 		x * _rhs.y - y * _rhs.x
 	);
+}
+
+inline BEVector3& BEVector3::Normalize()
+{
+	float lenSq = x * x + y * y + z * z;
+	if (lenSq > 0.0f)
+	{
+		float lenInv = 1.0f / std::sqrtf(lenSq);
+		x *= lenInv;
+		y *= lenInv;
+		z *= lenInv;
+	}
+	return *this;
 }

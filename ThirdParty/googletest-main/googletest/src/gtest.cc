@@ -2644,7 +2644,7 @@ Result HandleExceptionsInMethodIfSupported(T* object, Result (T::*method)(),
       internal::ReportFailureInUnknownLocation(
           TestPartResult::kFatalFailure,
           FormatCxxExceptionMessage(e.what(), location));
-    } catch (...) {  // NOLINT
+     } catch (...) {  // NOLINT
       internal::ReportFailureInUnknownLocation(
           TestPartResult::kFatalFailure,
           FormatCxxExceptionMessage(nullptr, location));

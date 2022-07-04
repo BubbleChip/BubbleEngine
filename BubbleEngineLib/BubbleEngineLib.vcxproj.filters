@@ -82,6 +82,7 @@
     <ClInclude Include="Graphics\BEVertexDescriptor.h" />
     <ClInclude Include="Graphics\Platforms\D3DX12\Shader.h" />
     <ClInclude Include="Graphics\Platforms\D3DX12\Types.h" />
+    <ClInclude Include="Graphics\BECamera.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Math\BEVector2.inl">
@@ -135,5 +136,6 @@
     <ClCompile Include="Graphics\Platforms\D3DX12\CopyCommandEncoder.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\RenderPipeline.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\Shader.cpp" />
+    <ClCompile Include="Graphics\BECamera.cpp" />
   </ItemGroup>
 </Project>

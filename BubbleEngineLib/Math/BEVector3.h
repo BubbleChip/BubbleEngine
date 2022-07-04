@@ -24,6 +24,7 @@ public:
 
 	inline float Dot(const BEVector3& _rhs) const ;
 	inline BEVector3 Cross(const BEVector3& _rhs) const ;
+	inline BEVector3& Normalize();
 
 
 public:

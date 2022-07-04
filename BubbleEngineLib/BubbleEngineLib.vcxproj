@@ -23,6 +23,7 @@
     <ClInclude Include="App\ApplicationContext\BEAppContextInterface.h" />
     <ClInclude Include="App\Platforms\ApplicationPlatform.h" />
     <ClInclude Include="App\Platforms\Win32\ApplicationContext.h" />
+    <ClInclude Include="Graphics\BECamera.h" />
     <ClInclude Include="Graphics\BEBlendState.h" />
     <ClInclude Include="Graphics\BEShader.h" />
     <ClInclude Include="Graphics\BERenderPipeline.h" />
@@ -89,6 +90,7 @@
   <ItemGroup>
     <ClCompile Include="App\BEApp.cpp" />
     <ClCompile Include="App\Platforms\Win32\ApplicationContext.cpp" />
+    <ClCompile Include="Graphics\BECamera.cpp" />
     <ClCompile Include="BECore\BERefCounter.cpp" />
     <ClCompile Include="Graphics\Platforms\D3DX12\CopyCommandEncoder.cpp" />
     <ClCompile Include="Graphics\BEColor32.cpp" />

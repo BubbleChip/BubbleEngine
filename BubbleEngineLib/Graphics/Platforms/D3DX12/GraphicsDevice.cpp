@@ -500,7 +500,7 @@ BEObject<BERenderPipeline> GraphicsDevice::CreateRenderPipeline(const BERenderPi
         psoDesc.SampleMask = UINT_MAX;
 
         //Why cannot created ?
-        ThrowIfFailed(device->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(&pipelineState)));
+         ThrowIfFailed(device->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(&pipelineState)));
     }
 
     return new RenderPipeline(pipelineState.Get(), rootSignature.Get());
@@ -512,10 +512,10 @@ BEObject<BEShader> GraphicsDevice::CreateShader(const std::vector<uint8_t>& code
     switch (stage)
     {
     case BEShader::StageType::Vertex:
-        shaderVersionName = "vs_5_1";
+        shaderVersionName = "vs_5_0";
         break;
     case BEShader::StageType::Fragment:
-        shaderVersionName = "ps_5_1";
+        shaderVersionName = "ps_5_0";
         break;
     default:
         BEASSERT_DESC(false, "Unsupported shader stage.");
