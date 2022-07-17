@@ -9,7 +9,7 @@ public:
 	BEObject(T* _p = nullptr)
 		: refCounter(_p)
 	{
-
+		ObjectAddRef();
 	}
 	BEObject(const BEObject& _obj)
 		: refCounter(_obj.refCounter)
