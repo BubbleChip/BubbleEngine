@@ -8,3 +8,4 @@
 #include "BEColor32.h"
 #include "BELinearColor.h"
 #include "BEViewport.h"
+#include "BECamera.h"

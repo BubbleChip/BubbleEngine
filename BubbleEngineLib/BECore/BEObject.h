@@ -2,116 +2,174 @@
 #include <type_traits>
 #include "BERefCounter.h"
 
-template<typename T>
+template<class T>
+concept HasRefCounter = std::is_convertible_v<T*, BERefCounter*>;
+
+template<class T, class U>
+concept Convertible = std::is_convertible_v<T*, U*>;
+
+template<HasRefCounter T>
 class BEObject final
 {
 public:
-	BEObject(T* _p = nullptr)
-		: refCounter(_p)
+	BEObject(T* p = nullptr)
+		: target(p)
 	{
-		ObjectAddRef();
+		InternalAddRef();
 	}
-	BEObject(const BEObject& _obj)
-		: refCounter(_obj.refCounter)
+	BEObject(const BEObject& obj)
+		: target(obj.target)
 	{
-		ObjectAddRef();
+		InternalAddRef();
 	}
-	BEObject(BEObject&& _obj) noexcept
-		: refCounter(_obj.refCounter)
+	BEObject(BEObject&& obj) noexcept
+		: target(obj.target)
 	{
-		_obj.refCounter = nullptr;
+		obj.target = nullptr;
+	}
+
+	// convertible
+	template<Convertible U>
+	BEObject(U* p)
+		: target(p)
+	{
+		InternalAddRef();
+	}
+	template<Convertible U>
+	BEObject(const BEObject<U>& obj)
+		: target(obj.target)
+	{
+		InternalAddRef();
+	}
+	template<Convertible U>
+	BEObject(BEObject<U>&& obj) noexcept
+		: target(obj.target)
+	{
+		obj.target = nullptr;
 	}
 
 	~BEObject() noexcept
 	{
-		ObjectRelease();
+		InternalRelease();
 	}
 
-	BEObject& operator = (T* _obj)
+	BEObject& operator = (T* obj)
 	{
-		if (refCounter != _obj)
-			ObjectRelease();
+		if (target != obj)
+			InternalRelease();
 
-		refCounter = _obj;
-		ObjectAddRef();
+		target = obj;
+		InternalAddRef();
 		return *this;
 	}
-	BEObject& operator = (const BEObject& _obj)
+	BEObject& operator = (const BEObject& obj)
 	{
-		if (refCounter != _obj.refCounter)
-			ObjectRelease();
+		if (target != obj.target)
+			InternalRelease();
 
-		refCounter = _obj.refCounter;
-		ObjectAddRef();
+		target = obj.target;
+		InternalAddRef();
 		return *this;
 	}
-	BEObject& operator = (BEObject&& _obj) noexcept
+	BEObject& operator = (BEObject&& obj) noexcept
 	{
-		if (refCounter != _obj.refCounter)
-			ObjectRelease();
+		if (target != obj.target)
+			InternalRelease();
 
-		refCounter = _obj.refCounter;
-		_obj.refCounter = nullptr;
+		target = obj.target;
+		obj.target = nullptr;
+		return *this;
+	}
+
+	// convertible
+	template<Convertible U>
+	BEObject& operator = (U* obj)
+	{
+		if (target != obj)
+			InternalRelease();
+
+		target = obj;
+		InternalAddRef();
+		return *this;
+	}
+	template<Convertible U>
+	BEObject& operator = (const BEObject<U>& obj)
+	{
+		if (target != obj.target)
+			InternalRelease();
+
+		target = obj.target;
+		InternalAddRef();
+		return *this;
+	}
+	template<Convertible U>
+	BEObject& operator = (BEObject<U>&& obj) noexcept
+	{
+		if (target != obj.target)
+			InternalRelease();
+
+		target = obj.target;
+		obj.target = nullptr;
 		return *this;
 	}
 
 	template<class U>
 	BEObject<U> DynamicCast()
 	{
-		return dynamic_cast<U*>(refCounter);
+		return dynamic_cast<U*>(target);
 	}
 
 	T* operator -> ()
 	{
-		return static_cast<T*> (refCounter);
+		return target;
 	}
 	const T* operator -> () const
 	{
-		return refCounter;
+		return target;
 	}
 
 	T* operator * ()
 	{
-		return refCounter;
+		return target;
 	}
 	const T* operator * () const
 	{
-		return refCounter;
+		return target;
 	}
 
 	operator T* ()
 	{
-		return static_cast<T*> (refCounter);
+		return target;
 	}
 	operator const T* () const
 	{
-		return refCounter;
+		return target;
 	}
 
 	T* Ptr()
 	{
-		return static_cast<T*> (refCounter);
+		return target;
 	}
 	const T* Ptr() const
 	{
-		return refCounter;
+		return target;
 	}
 
 private:
-	void ObjectAddRef()
+	void InternalAddRef()
 	{
-		if (refCounter)
-			refCounter->AddRef();
+		if (target)
+			target->AddRef();
 	}
 
-	void ObjectRelease()
+	void InternalRelease()
 	{
-		if (refCounter && refCounter->ReleaseRef() == 0)
+		if (target && target->ReleaseRef() == 0)
 		{
-			delete refCounter;
-			refCounter = nullptr;
+			delete target;
+			target = nullptr;
 		}
 	}
 
-	BERefCounter* refCounter;
+	T* target;
 };

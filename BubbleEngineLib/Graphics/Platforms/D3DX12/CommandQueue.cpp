@@ -19,6 +19,7 @@ BEObject<BESwapChain> CommandQueue::CreateSwapChain(const BEWindow* _window)
 
 BEObject<BECommandBuffer> CommandQueue::CreateCommandBuffer()
 {
+	commandAllocator->Reset();
 	return new CommandBuffer(this, commandAllocator.Get(), commandList.Get(), D3D12_COMMAND_LIST_TYPE_DIRECT);
 }
 
